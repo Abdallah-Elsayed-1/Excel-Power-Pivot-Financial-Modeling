@@ -1,0 +1,3940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#03060f">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Abdallah Elsayed: Data Analyst and Business Intelligence Specialist. Executive Power BI dashboards, SQL pipelines and six production case studies.">
+  <script>document.documentElement.classList.add('js');</script>
+  <title>Abdallah Elsayed | BI Specialist & Data Analyst</title>
+  
+  <!-- Font Awesome & Google Fonts & Devicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --bg-dark: #03060f;
+      --bg-surface: rgba(10, 16, 32, 0.62);
+      --bg-surface-elevated: #0a1124;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --border-glow: rgba(0, 242, 254, 0.4);
+
+      --neon-cyan: #00f2fe;
+      --neon-blue: #4facfe;
+      --neon-purple: #8a2be2;
+      --neon-green: #10b981;
+      --neon-amber: #f59e0b;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #7a8aa3;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --transition: all 0.3s var(--ease);
+
+      --header-h: 62px;
+      --gutter: clamp(16px, 4vw, 28px);
+      --sec-y: clamp(36px, 5.5vw, 64px);
+
+      /* Fluid type scale */
+      --fs-body: clamp(0.9rem, 0.87rem + 0.15vw, 0.95rem);
+      --fs-sm: 0.84rem;
+      --fs-xs: 0.74rem;
+      --fs-h1: clamp(1.9rem, 1.25rem + 2.8vw, 2.8rem);
+      --fs-h2: clamp(1.4rem, 1.1rem + 1.4vw, 1.9rem);
+      --fs-h3: clamp(1.02rem, 0.97rem + 0.3vw, 1.15rem);
+    }
+
+    /* =========================================================
+       BASE
+       ========================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-h) + 14px);
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      color-scheme: dark;
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Fixed backdrop lives on a pseudo-element: avoids the iOS
+       background-attachment:fixed repaint jank. */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 10% 6%, rgba(0, 242, 254, 0.13) 0%, transparent 42%),
+        radial-gradient(circle at 92% 62%, rgba(138, 43, 226, 0.15) 0%, transparent 48%),
+        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.07) 0%, transparent 52%),
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    img, svg, video { max-width: 100%; }
+    img { display: block; }
+    button { font: inherit; color: inherit; }
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--neon-cyan);
+      outline-offset: 3px;
+    }
+
+    ::selection { background: rgba(0, 242, 254, 0.3); color: #fff; }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px));
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding-top: env(safe-area-inset-top, 0px);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      background: rgba(3, 6, 15, 0.78);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+
+    header.is-scrolled {
+      background: rgba(3, 6, 15, 0.92);
+      border-bottom-color: var(--border-glass);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .scroll-progress {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 2px;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue));
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.7);
+      pointer-events: none;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: var(--header-h);
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid var(--neon-cyan);
+      overflow: hidden;
+      box-shadow: 0 0 14px rgba(0, 242, 254, 0.4);
+      flex-shrink: 0;
+    }
+
+    .brand-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-text h3 {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-text span {
+      font-size: 0.66rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 600;
+      display: block;
+    }
+
+    .nav-links {
+      position: relative; /* makes offsetLeft relative to the scroller for the section spy */
+      display: flex;
+      list-style: none;
+      gap: 4px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .nav-links li { flex-shrink: 0; }
+
+    .nav-links a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 11px;
+      border-radius: 999px;
+      transition: color 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+      white-space: nowrap;
+    }
+
+    .nav-links a.active {
+      color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.08);
+    }
+
+    .nav-links a.nav-wa { color: #25d366; }
+    .nav-links a.nav-wa.active { background: rgba(37, 211, 102, 0.08); }
+
+    .nav-links a.nav-cta-btn {
+      padding: 7px 15px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      color: var(--neon-cyan);
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
+    .btn {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active { transform: translateY(0) scale(0.975); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+      color: #040914;
+      box-shadow: 0 4px 18px rgba(0, 242, 254, 0.3);
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform 0.7s var(--ease);
+    }
+
+    .btn-outline {
+      background: rgba(14, 21, 38, 0.6);
+      color: var(--text-main);
+      border-color: var(--border-glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn-wa {
+      color: #25d366;
+      border-color: rgba(37, 211, 102, 0.3);
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero {
+      padding: clamp(24px, 4.5vw, 46px) 0 clamp(20px, 3.5vw, 34px);
+      position: relative;
+    }
+
+    .hero-split-layout {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: clamp(24px, 5vw, 52px);
+      align-items: center;
+      margin-bottom: clamp(22px, 3.5vw, 32px);
+    }
+
+    .hero-avatar-wrapper {
+      --avatar: clamp(150px, 22vw, 220px);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: calc(var(--avatar) * 1.2);
+    }
+
+    .hero-glow-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(var(--avatar) * 1.2);
+      height: calc(var(--avatar) * 1.2);
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.28) 0%, rgba(138, 43, 226, 0.2) 50%, transparent 72%);
+      border-radius: 50%;
+      z-index: 1;
+      animation: pulseAura 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseAura {
+      0% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.65; }
+      100% { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
+    }
+
+    .hero-profile-box { position: relative; z-index: 2; }
+
+    .hero-profile-img {
+      width: var(--avatar);
+      height: var(--avatar);
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid rgba(0, 242, 254, 0.95);
+      box-shadow: 0 0 48px rgba(0, 242, 254, 0.45), 0 0 20px rgba(0, 0, 0, 0.8);
+      transition: var(--transition);
+    }
+
+    .hero-content-col { text-align: left; min-width: 0; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      margin-bottom: 12px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #34d399;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .hero-name {
+      font-size: var(--fs-h1);
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.12;
+      text-wrap: balance;
+    }
+
+    .hero-title {
+      font-size: clamp(1rem, 0.9rem + 0.55vw, 1.22rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -0.2px;
+      line-height: 1.3;
+    }
+
+    .hero-usp {
+      max-width: 640px;
+      color: #cbd5e1;
+      font-size: clamp(0.92rem, 0.88rem + 0.2vw, 1rem);
+      line-height: 1.65;
+      font-weight: 500;
+      margin-bottom: 16px;
+      text-wrap: pretty;
+    }
+
+    .hero-usp strong { color: #fff; font-weight: 700; }
+
+    .hero-executive-strip {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      padding: 6px 16px;
+      margin-bottom: 18px;
+    }
+
+    .hero-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+
+    .hero-stat-item i { color: var(--neon-cyan); }
+    .hero-stat-item strong { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 600; }
+
+    .hero-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-social-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 4px;
+    }
+
+    .hero-social-icons a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    /* Quick navigation tiles */
+    .quick-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .quick-nav-card {
+      background: rgba(14, 21, 38, 0.5);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 13px 12px;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+      transition: var(--transition);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quick-nav-thumb {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.28);
+    }
+
+    .quick-nav-card strong { font-size: 0.84rem; font-weight: 700; color: #fff; line-height: 1.25; }
+    .quick-nav-card span { font-size: 0.72rem; color: var(--text-dim); line-height: 1.35; }
+
+    /* =========================================================
+       SECTION HEADINGS
+       ========================================================= */
+    .section-title-wrap {
+      text-align: center;
+      margin-bottom: clamp(22px, 3.5vw, 32px);
+      position: relative;
+    }
+
+    .section-tracker-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 13px;
+      border-radius: 30px;
+      font-size: 0.68rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.28);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+    }
+
+    .section-title {
+      font-size: var(--fs-h2);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    .section-title-highlight {
+      background: linear-gradient(135deg, #fff 20%, var(--neon-cyan) 60%, var(--neon-blue) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: var(--fs-sm);
+      line-height: 1.65;
+      text-wrap: pretty;
+    }
+
+    .title-glow-line {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      margin: 12px auto 0;
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    /* =========================================================
+       ABOUT
+       ========================================================= */
+    .about-section { padding: var(--sec-y) 0 calc(var(--sec-y) * 0.7); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 16px;
+    }
+
+    .about-card {
+      background: linear-gradient(135deg, rgba(14, 21, 40, 0.7) 0%, rgba(8, 13, 26, 0.85) 100%);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: clamp(18px, 2.6vw, 24px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      transition: var(--transition);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      opacity: 0.6;
+    }
+
+    .about-card-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 14px;
+    }
+
+    .about-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: rgba(0, 242, 254, 0.1);
+      color: var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      flex-shrink: 0;
+    }
+
+    .about-card h3 {
+      font-size: var(--fs-h3);
+      color: #fff;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+
+    .about-card p {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .about-card ul {
+      margin-left: 18px;
+      color: #cbd5e1;
+      font-size: 0.83rem;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .about-card li { margin-bottom: 6px; }
+
+    .about-card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .highlight-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.08);
+      padding: 3px 9px;
+      border-radius: 7px;
+      border: 1px solid rgba(0, 242, 254, 0.24);
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       SKILLS
+       ========================================================= */
+    .skills-section { padding: calc(var(--sec-y) * 0.7) 0; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 14px;
+    }
+
+    .skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: clamp(16px, 2.4vw, 22px);
+      transition: var(--transition);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      min-width: 0;
+    }
+
+    .skill-card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tool-badge-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .skill-card-top h4 { font-size: 1rem; color: #fff; font-weight: 700; line-height: 1.25; }
+
+    .skill-card-top span {
+      font-size: 0.66rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-weight: 600;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .skill-card p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .tag-container { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tech-tag {
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      padding: 3px 9px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       WORKFLOW
+       ========================================================= */
+    .workflow-section {
+      padding: var(--sec-y) 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(14, 21, 38, 0.45) 50%, transparent 100%);
+    }
+
+    .workflow-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .workflow-step-card {
+      background: linear-gradient(135deg, rgba(13, 20, 38, 0.75) 0%, rgba(7, 11, 22, 0.88) 100%);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: clamp(18px, 3vw, 28px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(18px, 3vw, 28px);
+      align-items: center;
+      transition: var(--transition);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position: relative;
+    }
+
+    .step-content { min-width: 0; }
+
+    .step-number-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      padding: 4px 11px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      max-width: 100%;
+    }
+
+    .step-content h3 {
+      font-size: clamp(1.08rem, 1rem + 0.5vw, 1.3rem);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+
+    .step-content p {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .step-deliverables-box {
+      background: rgba(0, 242, 254, 0.04);
+      border-left: 3px solid var(--neon-cyan);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .step-deliverables-box strong { display: block; color: #fff; font-size: 0.8rem; margin-bottom: 2px; }
+    .step-deliverables-box span { color: var(--text-muted); font-size: 0.8rem; line-height: 1.5; }
+
+    .step-code-visual-preview {
+      background: #050813;
+      border: 1px solid rgba(0, 242, 254, 0.28);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      max-width: 100%;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.7), inset 0 0 18px rgba(0, 242, 254, 0.05);
+    }
+
+    .visual-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 14px;
+      background: rgba(16, 24, 46, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      color: var(--text-muted);
+    }
+
+    .visual-header-bar > span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .window-controls { display: flex; gap: 6px; flex-shrink: 0; }
+    .window-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .code-mockup-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .kpi-matrix-mockup {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .kpi-chip {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 242, 254, 0.22);
+      border-radius: 9px;
+      padding: 9px 11px;
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .kpi-chip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--neon-cyan);
+    }
+
+    .kpi-chip small { display: block; color: var(--text-dim); font-size: 0.64rem; font-weight: 700; margin-bottom: 3px; }
+    .kpi-chip strong { color: #fff; font-size: 0.84rem; }
+
+    .kpi-metric-bar {
+      height: 4px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 7px;
+      overflow: hidden;
+    }
+
+    .kpi-metric-fill { height: 100%; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue)); }
+
+    .etl-editor-container {
+      display: flex;
+      gap: 12px;
+      font-size: 0.72rem;
+      line-height: 1.7;
+      min-width: max-content;
+    }
+
+    .line-numbers { color: #475569; user-select: none; text-align: right; }
+    .etl-pipeline-code { color: #94a3b8; white-space: nowrap; }
+    .etl-keyword { color: #c084fc; font-weight: 700; }
+    .etl-func { color: #38bdf8; font-weight: 600; }
+    .etl-str { color: #34d399; }
+
+    .etl-cursor {
+      display: inline-block;
+      width: 6px;
+      height: 13px;
+      background: var(--neon-cyan);
+      vertical-align: middle;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .star-schema-interactive {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      position: relative;
+    }
+
+    .schema-card {
+      background: rgba(14, 21, 40, 0.95);
+      border: 1px solid var(--border-glass);
+      border-radius: 9px;
+      padding: 8px 9px;
+      font-size: 0.68rem;
+      flex: 1 1 0;
+      min-width: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      overflow-wrap: anywhere;
+    }
+
+    .schema-card-header {
+      font-weight: 800;
+      color: #fff;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 4px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .schema-card.fact {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.08);
+      box-shadow: 0 0 18px rgba(0, 242, 254, 0.22);
+    }
+
+    .schema-link-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      color: var(--neon-cyan);
+      font-size: 0.7rem;
+      flex: 0 0 auto;
+    }
+
+    .pulse-line {
+      width: clamp(10px, 2.4vw, 22px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue));
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    .dashboard-preview-deck { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .dashboard-mini-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+
+    .mini-kpi-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 5px 8px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .mini-kpi-box small { font-size: 0.6rem; color: var(--text-dim); display: block; }
+    .mini-kpi-box strong { font-size: 0.8rem; color: var(--neon-cyan); }
+
+    .chart-canvas-mockup {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 84px;
+      padding-top: 8px;
+      border-bottom: 1px solid var(--border-glass);
+      position: relative;
+    }
+
+    .chart-canvas-mockup::before {
+      content: '';
+      position: absolute;
+      top: 30%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      border-top: 1px dashed rgba(0, 242, 254, 0.3);
+    }
+
+    .bar-element {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, var(--neon-cyan), rgba(0, 242, 254, 0.2));
+      transition: background 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .outcomes-mockup-list { display: flex; flex-direction: column; gap: 8px; font-size: 0.72rem; }
+
+    .outcome-pill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 9px 13px;
+      border-radius: 9px;
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--neon-green);
+      color: #e2e8f0;
+      transition: var(--transition);
+    }
+
+    /* =========================================================
+       PROJECTS  (filter bar + glass cards)
+       ========================================================= */
+    .projects-section { padding: var(--sec-y) 0 calc(var(--sec-y) * 1.1); }
+
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: clamp(18px, 3vw, 26px);
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      position: relative;
+      background: rgba(14, 21, 38, 0.65);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      padding: 8px 17px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.2;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.25s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease),
+                  box-shadow 0.25s var(--ease), transform 0.2s var(--ease);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .filter-btn:active { transform: scale(0.96); }
+
+    .filter-btn.active {
+      color: #040914;
+      background: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 22px rgba(0, 242, 254, 0.4);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      gap: clamp(14px, 2vw, 20px);
+    }
+
+    .project-card {
+      --accent: var(--neon-cyan);
+      --accent-rgb: 0, 242, 254;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      background: linear-gradient(160deg, rgba(16, 25, 48, 0.72) 0%, rgba(8, 13, 26, 0.86) 100%);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), opacity 0.25s var(--ease-snap);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .project-card[data-category="excel"] { --accent: #10b981; --accent-rgb: 16, 185, 129; }
+    .project-card[data-category="python"] { --accent: #38bdf8; --accent-rgb: 56, 189, 248; }
+
+    /* Gradient border that glows toward the pointer */
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      padding: 1px;
+      border-radius: inherit;
+      background:
+        radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--accent-rgb), 0.95), transparent 62%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.55;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    /* Soft spotlight under the pointer */
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--accent-rgb), 0.11), transparent 62%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    .project-card:focus-visible { outline-offset: 4px; }
+    .project-card:focus-visible::before { opacity: 1; }
+
+    .project-thumb-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #02040a;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .project-thumb-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.7s var(--ease), filter 0.4s var(--ease);
+    }
+
+    .badge-pill {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      max-width: calc(100% - 20px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: rgba(5, 8, 17, 0.72);
+      border: 1px solid rgba(var(--accent-rgb), 0.38);
+      color: var(--accent);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .badge-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      flex-shrink: 0;
+    }
+
+    .gallery-counter-pill {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(5, 8, 17, 0.72);
+      border: 1px solid var(--border-glass);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: opacity 0.3s var(--ease);
+    }
+
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(3, 6, 15, 0.1) 0%, rgba(3, 6, 15, 0.72) 100%);
+      opacity: 0;
+      transition: opacity 0.35s var(--ease);
+      pointer-events: none;
+    }
+
+    .preview-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #040914;
+      background: var(--accent);
+      box-shadow: 0 6px 22px rgba(var(--accent-rgb), 0.45);
+      transform: translateY(10px) scale(0.96);
+      transition: transform 0.4s var(--ease);
+    }
+
+    .project-body {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: clamp(14px, 2vw, 18px);
+    }
+
+    .project-body h3 {
+      font-size: var(--fs-h3);
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #fff;
+      line-height: 1.3;
+      letter-spacing: -0.2px;
+      text-wrap: balance;
+    }
+
+    .project-body p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .project-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .kpi-unit { padding: 8px 10px; min-width: 0; }
+    .kpi-unit + .kpi-unit { border-left: 1px solid var(--border-subtle); }
+
+    .kpi-unit small {
+      display: block;
+      color: var(--text-dim);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      font-weight: 600;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .kpi-unit strong {
+      display: block;
+      margin-top: 1px;
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-weight: 600;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .project-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .project-footer .tag-container { min-width: 0; gap: 5px; }
+
+    .view-link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .view-link i { transition: transform 0.3s var(--ease); }
+
+    /* Filter animation states (driven by JS) */
+    .project-card.is-leaving { opacity: 0; transform: scale(0.96) translateY(6px); pointer-events: none; }
+    .project-card[hidden] { display: none !important; }
+
+    /* One orchestrated entrance for the grid (only when JS is running) */
+    .js .project-card.reveal:not(.in) { opacity: 0; transform: translateY(18px); }
+    .js .project-card.reveal.in { transition-delay: var(--d, 0ms); }
+
+    /* =========================================================
+       PROJECT MODAL  (mobile-safe)
+       ========================================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0px, 2.4vw, 24px);
+      background: rgba(2, 4, 10, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow: hidden;
+      overscroll-behavior: contain;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 0.3s var(--ease), visibility 0s;
+    }
+
+    .modal-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1080px;
+      max-height: 100%;
+      min-height: 0;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 242, 254, 0.08);
+      transform: translateY(18px) scale(0.985);
+      transition: transform 0.4s var(--ease);
+    }
+
+    .modal-overlay.active .modal-content { transform: none; }
+
+    /* Scrolling happens here, so the close button stays pinned. */
+    .modal-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: max(12px, env(safe-area-inset-top, 0px));
+      right: 12px;
+      z-index: 30;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(5, 8, 17, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .modal-interactive-deck {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      border-bottom: 1px solid var(--border-glass);
+      background: #060914;
+    }
+
+    .carousel-column {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      border-right: 1px solid var(--border-glass);
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      max-height: 68dvh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* The stage is the zoom/scroll viewport; img never gets cropped. */
+    .carousel-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-img {
+      display: block;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      opacity: 1;
+      transition: opacity 0.25s var(--ease-snap);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .carousel-container.is-loading .carousel-img { opacity: 0.15; }
+
+    .carousel-container.is-loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 28px;
+      height: 28px;
+      margin: -14px 0 0 -14px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: var(--neon-cyan);
+      animation: spin 0.7s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .carousel-container.is-error::after {
+      content: 'Preview unavailable';
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+
+    .carousel-container.is-zoomed .carousel-stage { overflow: auto; touch-action: pan-x pan-y; cursor: grab; }
+
+    .carousel-container.is-zoomed .carousel-img {
+      width: 230%;
+      height: auto;
+      max-width: none;
+      flex: none;
+      object-fit: fill;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(5, 8, 17, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .carousel-btn:active { transform: translateY(-50%) scale(0.92); }
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
+
+    .zoom-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(5, 8, 17, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .zoom-btn[aria-pressed="true"] { background: var(--neon-cyan); color: #040914; border-color: var(--neon-cyan); }
+
+    .carousel-caption-bar {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      max-width: calc(100% - 110px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: rgba(5, 8, 17, 0.78);
+      border: 1px solid var(--border-glass);
+      padding: 5px 13px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      color: #fff;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .thumbnails-strip {
+      position: relative;
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #050812;
+      overflow-x: auto;
+      overflow-y: hidden;
+      border-top: 1px solid var(--border-glass);
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    }
+
+    .thumb-item {
+      width: 64px;
+      height: 42px;
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.5;
+      flex-shrink: 0;
+      scroll-snap-align: center;
+      transition: opacity 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+
+    .thumb-item.active { border-color: var(--neon-cyan); opacity: 1; }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .insights-sidebar-column {
+      min-width: 0;
+      padding: clamp(18px, 2.6vw, 26px);
+      display: flex;
+      flex-direction: column;
+      background: rgba(14, 21, 38, 0.75);
+    }
+
+    .live-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.66rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      color: var(--neon-cyan);
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.32);
+      padding: 4px 11px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      width: fit-content;
+      font-weight: 700;
+    }
+
+    .insights-sidebar-column h3 {
+      font-size: var(--fs-h3);
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.35;
+      font-weight: 800;
+      padding-right: 34px;
+    }
+
+    .insights-sidebar-column p {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .active-insight-metrics-card {
+      background: rgba(0, 242, 254, 0.04);
+      border: 1px solid rgba(0, 242, 254, 0.26);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-top: auto;
+    }
+
+    .active-insight-metrics-card small {
+      display: block;
+      color: var(--neon-cyan);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .active-insight-metrics-card strong {
+      color: #fff;
+      font-size: 0.84rem;
+      font-weight: 500;
+      line-height: 1.5;
+      display: block;
+    }
+
+    .modal-body { padding: clamp(18px, 3vw, 28px); }
+
+    .modal-category-text {
+      color: var(--neon-cyan);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      margin-bottom: 4px;
+    }
+
+    .modal-body h2 {
+      font-size: clamp(1.2rem, 1.05rem + 0.8vw, 1.5rem);
+      margin-bottom: 4px;
+      line-height: 1.3;
+      color: #fff;
+      font-weight: 800;
+      text-wrap: balance;
+    }
+
+    .modal-grid-details {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: clamp(18px, 3vw, 28px);
+      margin-top: 18px;
+    }
+
+    .modal-info-block { min-width: 0; }
+
+    .modal-info-block h4 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      color: var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .modal-info-block p {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      margin-bottom: 16px;
+      line-height: 1.65;
+    }
+
+    .modal-info-block ul {
+      margin-left: 18px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .modal-info-block li { margin-bottom: 5px; }
+
+    .modal-sidebar {
+      min-width: 0;
+      align-self: start;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .modal-sidebar h5 {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .modal-metrics-list { list-style: none; margin-bottom: 18px; }
+
+    .modal-metrics-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      gap: 10px;
+    }
+
+    .modal-metrics-list span { color: var(--text-muted); }
+    .modal-metrics-list strong { color: #fff; font-family: 'JetBrains Mono', ui-monospace, monospace; text-align: right; font-weight: 600; }
+
+    /* =========================================================
+       CONTACT
+       ========================================================= */
+    .contact-section {
+      padding: var(--sec-y) 0 calc(var(--sec-y) * 1.2);
+      background: linear-gradient(180deg, transparent 0%, rgba(10, 16, 32, 0.85) 100%);
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: clamp(24px, 4vw, 40px);
+      background: linear-gradient(135deg, rgba(14, 22, 44, 0.8) 0%, rgba(6, 10, 20, 0.9) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: clamp(20px, 4vw, 38px);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 242, 254, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+    }
+
+    .contact-info { min-width: 0; }
+
+    .contact-info h3 {
+      font-size: clamp(1.4rem, 1.15rem + 1.2vw, 1.85rem);
+      margin-bottom: 10px;
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      line-height: 1.2;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+
+    .contact-cards-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .contact-card-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      text-decoration: none;
+      color: inherit;
+      padding: 11px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .contact-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: rgba(0, 242, 254, 0.1);
+      color: var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 242, 254, 0.28);
+    }
+
+    .contact-card-content { min-width: 0; overflow-wrap: anywhere; }
+
+    .contact-card-content small {
+      display: block;
+      color: var(--text-dim);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .contact-card-content strong { color: #fff; font-size: 0.88rem; font-weight: 600; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+
+    .form-group input, .form-group textarea {
+      background: rgba(4, 7, 16, 0.9);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease);
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 96px; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #5b6b85; }
+
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.2);
+      background: rgba(4, 7, 16, 1);
+    }
+
+    .form-status {
+      display: none;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      margin-top: 4px;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .form-status.success {
+      display: flex;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+
+    .form-status.error {
+      display: flex;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 22px 0 calc(22px + env(safe-area-inset-bottom, 0px));
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       HOVER INTERACTIONS (hover-capable devices only,
+       so touch screens never get "stuck" hover states)
+       ========================================================= */
+    @media (hover: hover) and (pointer: fine) {
+      .nav-links a:hover { color: var(--neon-cyan); background: rgba(0, 242, 254, 0.07); }
+      .nav-links a.nav-wa:hover { color: #25d366; background: rgba(37, 211, 102, 0.1); }
+      .nav-links a.nav-cta-btn:hover {
+        background: var(--neon-cyan);
+        color: var(--bg-dark);
+        box-shadow: 0 0 22px rgba(0, 242, 254, 0.55);
+        transform: translateY(-1px);
+      }
+
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0, 242, 254, 0.5); }
+      .btn-primary:hover::after { transform: translateX(120%); }
+      .btn-outline:hover { background: rgba(22, 33, 60, 0.9); border-color: rgba(255, 255, 255, 0.32); transform: translateY(-2px); }
+      .btn-wa:hover { border-color: rgba(37, 211, 102, 0.7); box-shadow: 0 6px 22px rgba(37, 211, 102, 0.18); }
+
+      .hero-profile-img:hover { transform: scale(1.03); box-shadow: 0 0 70px rgba(0, 242, 254, 0.7); }
+
+      .hero-social-icons a:hover {
+        color: var(--neon-cyan);
+        border-color: var(--neon-cyan);
+        transform: translateY(-3px);
+        box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);
+      }
+
+      .quick-nav-card:hover {
+        border-color: var(--neon-cyan);
+        transform: translateY(-4px);
+        background: rgba(22, 33, 60, 0.85);
+        box-shadow: 0 10px 26px rgba(0, 242, 254, 0.2);
+      }
+
+      .about-card:hover { border-color: rgba(0, 242, 254, 0.6); transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 22px rgba(0, 242, 254, 0.12); }
+      .skill-card:hover { border-color: var(--border-glow); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 242, 254, 0.16); }
+      .workflow-step-card:hover { border-color: rgba(0, 242, 254, 0.55); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 26px rgba(0, 242, 254, 0.15); }
+      .bar-element:hover { background: var(--neon-cyan); box-shadow: 0 0 14px var(--neon-cyan); }
+      .outcome-pill-item:hover { border-color: var(--neon-green); background: rgba(16, 185, 129, 0.08); transform: translateX(3px); }
+
+      .filter-btn:not(.active):hover { color: #fff; border-color: rgba(0, 242, 254, 0.5); background: rgba(0, 242, 254, 0.08); transform: translateY(-1px); }
+
+      .project-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 46px rgba(0, 0, 0, 0.6), 0 0 32px rgba(var(--accent-rgb), 0.18);
+      }
+
+      .project-card:hover::before, .project-card:hover::after { opacity: 1; }
+      .project-card:hover .project-thumb-box img { transform: scale(1.05); filter: saturate(1.1); }
+      .project-card:hover .thumb-overlay { opacity: 1; }
+      .project-card:hover .preview-chip { transform: none; }
+      .project-card:hover .gallery-counter-pill { opacity: 0; }
+      .project-card:hover .view-link i { transform: translateX(4px); }
+
+      .modal-close-btn:hover { background: rgba(255, 255, 255, 0.22); transform: rotate(90deg); }
+      .carousel-btn:hover { background: var(--neon-cyan); color: #040914; border-color: var(--neon-cyan); }
+      .zoom-btn:hover { background: rgba(255, 255, 255, 0.2); }
+      .thumb-item:hover { opacity: 1; transform: translateY(-2px); }
+
+      .contact-card-item:hover { border-color: var(--neon-cyan); background: rgba(0, 242, 254, 0.08); transform: translateX(5px); box-shadow: 0 8px 22px rgba(0, 242, 254, 0.14); }
+    }
+
+    /* Keyboard users get the same card affordances as hover */
+    .project-card:focus-visible .thumb-overlay { opacity: 1; }
+    .project-card:focus-visible .preview-chip { transform: none; }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width: 1000px) {
+      nav { gap: 10px; }
+
+      .nav-links {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10px, #000 calc(100% - 22px), transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 10px, #000 calc(100% - 22px), transparent 100%);
+        padding-inline: 8px 18px;
+      }
+
+      .nav-links::-webkit-scrollbar { display: none; }
+    }
+
+    @media (max-width: 960px) {
+      .quick-nav-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      .modal-interactive-deck { grid-template-columns: minmax(0, 1fr); }
+      .carousel-column { border-right: none; border-bottom: 1px solid var(--border-glass); }
+      .modal-grid-details { grid-template-columns: minmax(0, 1fr); }
+      .modal-sidebar { align-self: stretch; }
+      .insights-sidebar-column h3 { padding-right: 0; }
+    }
+
+    @media (max-width: 860px) {
+      .workflow-step-card { grid-template-columns: minmax(0, 1fr); }
+      .contact-wrapper { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      :root { --header-h: 54px; }
+
+      .hero-split-layout {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .hero-avatar-wrapper { --avatar: 150px; }
+      .hero-content-col { text-align: center; }
+      .hero-usp { margin-inline: auto; }
+      .hero-executive-strip { justify-content: center; }
+      .hero-actions-row { justify-content: center; }
+
+      nav { gap: 8px; }
+      .brand-avatar { width: 34px; height: 34px; }
+      .brand-text h3 { font-size: 0.9rem; }
+      .brand-text span { font-size: 0.6rem; }
+
+      .nav-links a { font-size: 0.78rem; padding: 6px 9px; }
+      .nav-links a.nav-cta-btn { padding: 6px 12px; }
+
+      .about-grid { gap: 12px; }
+
+      /* Projects: filters become a swipeable row */
+      .filter-tabs {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: none;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        margin-inline: calc(var(--gutter) * -1);
+        padding: 2px var(--gutter) 6px;
+      }
+
+      .filter-tabs {
+        -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent 100%);
+        mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent 100%);
+      }
+
+      .filter-tabs::-webkit-scrollbar { display: none; }
+      .filter-btn { flex: 0 0 auto; scroll-snap-align: start; }
+
+      /* Modal becomes a full-height sheet: nothing is ever cut off. */
+      .modal-overlay { padding: 0; align-items: stretch; }
+
+      .modal-content {
+        max-width: none;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        border: none;
+        transform: translateY(24px);
+      }
+
+      .carousel-container { aspect-ratio: 4 / 3; max-height: 52dvh; }
+      .carousel-btn { width: 34px; height: 34px; font-size: 0.85rem; }
+      .carousel-prev { left: 8px; }
+      .carousel-next { right: 8px; }
+      .carousel-caption-bar { max-width: calc(100% - 100px); bottom: 8px; font-size: 0.68rem; }
+      .thumb-item { width: 56px; height: 38px; }
+      .modal-close-btn { right: 10px; top: max(10px, env(safe-area-inset-top, 0px)); }
+
+      /* 16px inputs stop iOS Safari zooming the page on focus */
+      .form-group input, .form-group textarea { font-size: 16px; }
+    }
+
+    @media (max-width: 520px) {
+      .btn { width: 100%; }
+      .hero-actions-row { flex-direction: column; width: 100%; }
+      .hero-actions-row .btn { width: 100%; }
+      .hero-social-icons { margin-left: 0; margin-top: 2px; }
+      .hero-executive-strip { border-radius: 14px; padding: 8px 14px; gap: 6px 14px; }
+
+      .quick-nav-grid { gap: 8px; }
+      .quick-nav-card { padding: 11px 8px; }
+      .quick-nav-card span { font-size: 0.68rem; }
+
+      .brand-text { display: none; }
+      .project-footer .view-link { margin-left: auto; }
+      .kpi-matrix-mockup { grid-template-columns: minmax(0, 1fr); }
+      .star-schema-interactive .schema-card { font-size: 0.62rem; padding: 6px 7px; }
+      .contact-card-item { padding: 10px 12px; }
+      .contact-card-content strong { font-size: 0.8rem; }
+    }
+
+    @media (max-width: 360px) {
+      .project-kpi-row { grid-template-columns: minmax(0, 1fr); }
+      .kpi-unit + .kpi-unit { border-left: none; border-top: 1px solid var(--border-subtle); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+      .js .project-card.reveal:not(.in) { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#about" class="brand">
+          <div class="brand-avatar">
+            <img src="https://i.postimg.cc/PrCvH7K3/Whats-App-Image-2026-06-15-at-12-40-41-AMswrty.jpg" alt="Abdallah Elsayed Profile Icon" width="38" height="38" decoding="async">
+          </div>
+          <div class="brand-text">
+            <h3>Abdallah Elsayed</h3>
+            <span>BI & Analytics Specialist</span>
+          </div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Tech Stack</a></li>
+          <li><a href="#workflow">Workflow</a></li>
+          <li><a href="#projects">Production Projects</a></li>
+          <li><a href="https://wa.me/201014809916?text=Hi%20Abdallah,%20I%20reviewed%20your%20BI%20portfolio" target="_blank" rel="noopener noreferrer" class="nav-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="#contact" class="nav-cta-btn"><i class="fa-solid fa-paper-plane"></i> Inquire</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  </header>
+
+  <!-- Side-by-Side Hero Section -->
+  <section class="hero" id="about">
+    <div class="container">
+      <div class="hero-split-layout">
+        <div class="hero-avatar-wrapper">
+          <div class="hero-glow-aura"></div>
+          <div class="hero-profile-box">
+            <img src="https://i.postimg.cc/PrCvH7K3/Whats-App-Image-2026-06-15-at-12-40-41-AMswrty.jpg" alt="Abdallah Elsayed" class="hero-profile-img" width="220" height="220" fetchpriority="high" decoding="async">
+          </div>
+        </div>
+
+        <!-- Right: Name, Title, Re-engineered USP & Clean Actions -->
+        <div class="hero-content-col">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            AVAILABLE FOR BI ROLES & CONSULTING
+          </div>
+
+          <h1 class="hero-name">Abdallah Elsayed</h1>
+          <h2 class="hero-title">Data Analyst & Business Intelligence Specialist</h2>
+
+          <p class="hero-usp">
+            Transforming operational data into <strong>executive Power BI dashboards</strong> and automated pipelines that optimize margins and streamline logistics.
+          </p>
+
+          <!-- Minimalist Stat Strip -->
+          <div class="hero-executive-strip">
+            <div class="hero-stat-item">
+              <i class="fa-solid fa-chart-line"></i>
+              <strong>53+ Views</strong>
+            </div>
+            <div class="hero-stat-item">
+              <i class="fa-solid fa-database"></i>
+              <strong>Enterprise SQL</strong>
+            </div>
+            <div class="hero-stat-item">
+              <i class="fa-solid fa-truck-fast"></i>
+              <strong>3+ Yrs Ops</strong>
+            </div>
+          </div>
+
+          <!-- Clean Actions: Main CTA + Sleek Icon Links -->
+          <div class="hero-actions-row">
+            <a href="#projects" class="btn btn-primary">
+              <i class="fa-solid fa-layer-group"></i> Explore Projects
+            </a>
+            <a href="https://wa.me/201014809916?text=Hi%20Abdallah" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-wa">
+              <i class="fa-brands fa-whatsapp"></i> Chat Direct
+            </a>
+
+            <!-- Social Icons as Clean Minimal Circles -->
+            <div class="hero-social-icons">
+              <a href="https://www.linkedin.com/in/abdallah-elsayed-d1" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://github.com/Abdallah-Elsayed-1" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=abdallahhelsayedd@gmail.com" target="_blank" rel="noopener noreferrer" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-nav-grid">
+        <a href="#about-domain" class="quick-nav-card">
+          <div class="quick-nav-thumb"><i class="fa-solid fa-briefcase"></i></div>
+          <strong>Domain Expertise</strong>
+          <span>3+ Yrs Operations & BI</span>
+        </a>
+        <a href="#skills" class="quick-nav-card">
+          <div class="quick-nav-thumb"><i class="fa-solid fa-layer-group"></i></div>
+          <strong>Engineering Stack</strong>
+          <span>Power BI, SQL, Python, DAX</span>
+        </a>
+        <a href="#workflow" class="quick-nav-card">
+          <div class="quick-nav-thumb"><i class="fa-solid fa-diagram-project"></i></div>
+          <strong>Client Workflow</strong>
+          <span>Ingestion to Value Realization</span>
+        </a>
+        <a href="#projects" class="quick-nav-card">
+          <div class="quick-nav-thumb"><i class="fa-solid fa-chart-pie"></i></div>
+          <strong>Production Projects</strong>
+          <span>6 Deep Case Studies</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Domain Background & Experience -->
+  <section class="about-section" id="about-domain">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-tracker-tag"><i class="fa-solid fa-briefcase"></i> FOUNDATIONAL EXPERIENCE</div>
+        <h2 class="section-title">Professional Background & <span class="section-title-highlight">Domain Expertise</span></h2>
+        <p class="section-desc">A business-first analytical mindset merging commercial administration with 3 years of hands-on operations, supply chain execution, and enterprise data training tracks.</p>
+        <div class="title-glow-line"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div>
+            <div class="about-card-header">
+              <div class="about-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+              <div>
+                <h3>3 Years in Operations & Supply Chain</h3>
+                <span class="highlight-tag">Operational Excellence</span>
+              </div>
+            </div>
+            <p>Directly supervised and audited end-to-end production runs, inventory health, and multi-stage warehouse logistics in manufacturing environments. Resolved critical operational bottlenecks through data-backed tracking:</p>
+            <ul>
+              <li><strong>Scrap & Waste Reduction:</strong> Pinpointed defect clusters across assembly stages to eliminate raw material losses.</li>
+              <li><strong>Inventory Health & Aging:</strong> Audited safety stock thresholds to minimize holding overhead and stockouts.</li>
+              <li><strong>Order Fulfillment SLAs:</strong> Monitored on-time delivery metrics, cutting dispatch cycle times significantly.</li>
+            </ul>
+          </div>
+          <div class="about-card-footer">
+            <span class="highlight-tag">Production Auditing</span>
+            <span class="highlight-tag">Bottleneck Elimination</span>
+            <span class="highlight-tag">Dispatch Logistics</span>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div>
+            <div class="about-card-header">
+              <div class="about-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div>
+                <h3>Zagazig University (Class of 2026)</h3>
+                <span class="highlight-tag">Commercial Administration</span>
+              </div>
+            </div>
+            <p>Graduated from the <strong>Faculty of Commerce, Zagazig University, Business Administration Department (Class of 2026)</strong>. This academic background ensures every metric directly supports commercial bottom-line success:</p>
+            <ul>
+              <li><strong>Unit Economics & Margins:</strong> Evaluating Gross Margin vs. Landed Cost rather than superficial vanity volumes.</li>
+              <li><strong>Customer Lifetime Value (LTV):</strong> Segmenting high-tier client cohorts for targeted retention strategies.</li>
+              <li><strong>Capital Expenditure & ROI:</strong> Translating analytical findings into concrete management action steps.</li>
+            </ul>
+          </div>
+          <div class="about-card-footer">
+            <span class="highlight-tag">Faculty of Commerce</span>
+            <span class="highlight-tag">Financial Modeling</span>
+            <span class="highlight-tag">Executive Strategy</span>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div>
+            <div class="about-card-header">
+              <div class="about-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <h3>Professional BI & Analytics Track</h3>
+                <span class="highlight-tag">Enterprise Credentials</span>
+              </div>
+            </div>
+            <p>Completed intensive training diplomas in Business Intelligence, Dimensional Data Modeling, and Data Pipelines through <strong>EraaSoft</strong> and the <strong>EYouth Initiative</strong>:</p>
+            <ul>
+              <li><strong>Dimensional Modeling:</strong> Designing Star Schemas with 1-to-many single directional relationships.</li>
+              <li><strong>Advanced DAX Formulas:</strong> Mastering CALCULATE context transition, Time Intelligence, and Ranking.</li>
+              <li><strong>SQL Pipelines:</strong> Writing multi-table relational joins, aggregations, and window functions.</li>
+            </ul>
+          </div>
+          <div class="about-card-footer">
+            <span class="highlight-tag">EraaSoft Certified</span>
+            <span class="highlight-tag">EYouth BI Program</span>
+            <span class="highlight-tag">DEPI Data Track</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills & Engineering Stack -->
+  <section class="skills-section" id="skills">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-tracker-tag"><i class="fa-solid fa-microchip"></i> TECHNICAL ARSENAL</div>
+        <h2 class="section-title">Core Competencies & <span class="section-title-highlight">Engineering Stack</span></h2>
+        <p class="section-desc">A production-tested tool stack covering end-to-end data pipelines: from relational database querying to statistical modeling and executive dashboard delivery.</p>
+        <div class="title-glow-line"></div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-top">
+            <div class="tool-badge-icon" style="color: #f2c811; border-color: rgba(242, 200, 17, 0.3);">
+              <i class="fa-solid fa-chart-column"></i>
+            </div>
+            <div>
+              <h4>Power BI Desktop & Service</h4>
+              <span>UI/UX & EXECUTIVE REPORTING</span>
+            </div>
+          </div>
+          <p>Architecting dark-mode interactive systems with dynamic bookmarks, page navigation drill-throughs, and responsive cross-filtering.</p>
+          <div class="tag-container">
+            <span class="tech-tag">Dynamic Slicers</span>
+            <span class="tech-tag">Bookmarks</span>
+            <span class="tech-tag">Waterfall Visuals</span>
+            <span class="tech-tag">Drill-Through</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-top">
+            <div class="tool-badge-icon" style="color: #00f2fe; border-color: rgba(0, 242, 254, 0.3);">
+              <i class="fa-solid fa-diagram-project"></i>
+            </div>
+            <div>
+              <h4>DAX & Dimensional Modeling</h4>
+              <span>STAR SCHEMA & VERTIPAQ ENGINE</span>
+            </div>
+          </div>
+          <p>Authoring high-performance DAX measures using CALCULATE, FILTER, dynamic parameters, and custom Time Intelligence logic.</p>
+          <div class="tag-container">
+            <span class="tech-tag">Star Schema</span>
+            <span class="tech-tag">CALCULATE</span>
+            <span class="tech-tag">Time Intelligence</span>
+            <span class="tech-tag">Context Transition</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-top">
+            <div class="tool-badge-icon" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">
+              <i class="devicon-microsoftsqlserver-plain colored"></i>
+            </div>
+            <div>
+              <h4>SQL Server & Relational DBs</h4>
+              <span>DATA EXTRACTION & ETL PIPELINES</span>
+            </div>
+          </div>
+          <p>Writing performant queries, relational multi-table JOINs, subqueries, CTEs, and window functions to pull unified datasets.</p>
+          <div class="tag-container">
+            <span class="tech-tag">INNER/LEFT JOIN</span>
+            <span class="tech-tag">Window Functions</span>
+            <span class="tech-tag">GROUP BY</span>
+            <span class="tech-tag">CTEs & Subqueries</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-top">
+            <div class="tool-badge-icon" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">
+              <i class="devicon-python-plain colored"></i>
+            </div>
+            <div>
+              <h4>Python Data Analytics (EDA)</h4>
+              <span>STATISTICAL WRANGLING & MODELING</span>
+            </div>
+          </div>
+          <p>Data wrangling with Pandas & NumPy, visual storytelling with Matplotlib/Seaborn, and regression analysis in Jupyter environments.</p>
+          <div class="tag-container">
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">NumPy</span>
+            <span class="tech-tag">Seaborn</span>
+            <span class="tech-tag">Linear Regression</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-top">
+            <div class="tool-badge-icon" style="color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+              <i class="fa-solid fa-gears"></i>
+            </div>
+            <div>
+              <h4>Power Query & M-Language</h4>
+              <span>DATA CLEANING & TRANSFORMATION</span>
+            </div>
+          </div>
+          <p>Authoring custom M-scripts, unpivoting complex columns, building automated date dimension tables, and cleansing anomalies.</p>
+          <div class="tag-container">
+            <span class="tech-tag">M-Code</span>
+            <span class="tech-tag">Advanced Editor</span>
+            <span class="tech-tag">Type Casting</span>
+            <span class="tech-tag">Automated Pipelines</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-top">
+            <div class="tool-badge-icon" style="color: #107c41; border-color: rgba(16, 185, 129, 0.4);">
+              <i class="fa-solid fa-file-excel"></i>
+            </div>
+            <div>
+              <h4>Advanced Excel & Power Pivot</h4>
+              <span>ENTERPRISE SPREADSHEET BI</span>
+            </div>
+          </div>
+          <p>Constructing multi-table Power Pivot models directly in Excel with Year-over-Year DAX variance analysis and dynamic pivot tables.</p>
+          <div class="tag-container">
+            <span class="tech-tag">Power Pivot</span>
+            <span class="tech-tag">YOY Measures</span>
+            <span class="tech-tag">Data Models</span>
+            <span class="tech-tag">KPI Cards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive End-to-End Workflow Section -->
+  <section class="workflow-section" id="workflow">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-tracker-tag"><i class="fa-solid fa-code-branch"></i> EXECUTION METHODOLOGY</div>
+        <h2 class="section-title">End-to-End Analytics & <span class="section-title-highlight">BI Client Workflow</span></h2>
+        <p class="section-desc">A structured 5-stage engineering methodology ensuring that every deliverable is clean, relationally robust, and strictly aligned with commercial strategic objectives.</p>
+        <div class="title-glow-line"></div>
+      </div>
+
+      <div class="workflow-timeline">
+        <div class="workflow-step-card">
+          <div class="step-content">
+            <span class="step-number-tag"><i class="fa-solid fa-crosshairs"></i> STEP 01 • BUSINESS SCOPING</span>
+            <h3>Requirements Scoping & Commercial Objectives</h3>
+            <p>
+              I collaborate with stakeholders to define the commercial questions the dashboard must answer. Instead of simply creating charts, we map out exact decision thresholds: What constitutes an operational bottleneck? Which margins are critical? How will leadership use these insights weekly?
+            </p>
+            <div class="step-deliverables-box">
+              <strong><i class="fa-solid fa-check"></i> Client Deliverable:</strong>
+              <span>Defined KPI Matrix, Functional Requirements Specification, and Data Field Mapping Sheet.</span>
+            </div>
+          </div>
+          
+          <div class="step-code-visual-preview">
+            <div class="visual-header-bar">
+              <div class="window-controls">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+              <span><i class="fa-solid fa-sliders"></i> scope_definition_matrix.env</span>
+            </div>
+            <div class="code-mockup-body">
+              <div class="kpi-matrix-mockup">
+                <div class="kpi-chip">
+                  <small><i class="fa-solid fa-circle-dot" style="color:var(--neon-cyan); margin-right:4px;"></i>PRIMARY OBJECTIVE</small>
+                  <strong>Gross Margin Variance</strong>
+                  <div class="kpi-metric-bar"><div class="kpi-metric-fill" style="width: 82%;"></div></div>
+                </div>
+                <div class="kpi-chip">
+                  <small><i class="fa-solid fa-chart-pie" style="color:var(--neon-green); margin-right:4px;"></i>EVALUATION GRAIN</small>
+                  <strong style="color: #38bdf8;">Daily / SKU Level</strong>
+                  <div class="kpi-metric-bar"><div class="kpi-metric-fill" style="width: 95%; background:var(--neon-green);"></div></div>
+                </div>
+                <div class="kpi-chip">
+                  <small><i class="fa-solid fa-bullseye" style="color:var(--neon-amber); margin-right:4px;"></i>TARGET THRESHOLD</small>
+                  <strong style="color: #34d399;">&gt; 17.5% Target</strong>
+                  <div class="kpi-metric-bar"><div class="kpi-metric-fill" style="width: 74%;"></div></div>
+                </div>
+                <div class="kpi-chip">
+                  <small><i class="fa-solid fa-triangle-exclamation" style="color:#f87171; margin-right:4px;"></i>ALERT TRIGGER</small>
+                  <strong style="color: #f87171;">Negative Variance</strong>
+                  <div class="kpi-metric-bar"><div class="kpi-metric-fill" style="width: 40%; background:#f87171;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step-card">
+          <div class="step-content">
+            <span class="step-number-tag"><i class="fa-solid fa-broom"></i> STEP 02 • ETL & DATA CLEANSING</span>
+            <h3>Data Extraction, Cleansing & Pipeline Automation</h3>
+            <p>
+              Using SQL queries and Power Query (M-Code), raw data from transactional databases, ERP exports, or spreadsheets is extracted, sanitized, and normalized. This includes resolving missing timestamps, deduplicating records, standardizing categorical spelling, and building automated calendar tables.
+            </p>
+            <div class="step-deliverables-box">
+              <strong><i class="fa-solid fa-check"></i> Client Deliverable:</strong>
+              <span>Fully documented M-scripts, zero duplicate rows, and clean staging queries ready for model ingestion.</span>
+            </div>
+          </div>
+
+          <div class="step-code-visual-preview">
+            <div class="visual-header-bar">
+              <div class="window-controls">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+              <span><i class="fa-solid fa-code"></i> pipeline_etl_cleanser.m</span>
+            </div>
+            <div class="code-mockup-body">
+              <div class="etl-editor-container">
+                <div class="line-numbers">
+                  01<br>02<br>03<br>04<br>05<br>06
+                </div>
+                <div class="etl-pipeline-code">
+                  <p><span class="etl-keyword">let</span> Source = Sql.Database(<span class="etl-str">"Server01"</span>, <span class="etl-str">"Sales_DB"</span>),</p>
+                  <p>&nbsp;&nbsp;CleanTypes = <span class="etl-func">Table.TransformColumnTypes</span>(Source, {{<span class="etl-str">"Amount"</span>, Currency.Type}}),</p>
+                  <p>&nbsp;&nbsp;Deduplicated = <span class="etl-func">Table.Distinct</span>(CleanTypes, {<span class="etl-str">"Order_ID"</span>}),</p>
+                  <p>&nbsp;&nbsp;FilterNulls = <span class="etl-func">Table.SelectRows</span>(Deduplicated, each [Date] &lt;&gt; <span class="etl-keyword">null</span>),</p>
+                  <p>&nbsp;&nbsp;CalendarJoin = <span class="etl-func">Table.NestedJoin</span>(FilterNulls, <span class="etl-str">"Date"</span>, DimDate, <span class="etl-str">"Date"</span>)</p>
+                  <p><span class="etl-keyword">in</span> CalendarJoin <span class="etl-cursor"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step-card">
+          <div class="step-content">
+            <span class="step-number-tag"><i class="fa-solid fa-cubes"></i> STEP 03 • ARCHITECTURE</span>
+            <h3>Dimensional Data Modeling & Complex DAX</h3>
+            <p>
+              I architect a pure Star Schema structure decoupling Fact tables from Dimension tables (Customer, Product, Date, Location) with 1-to-many single-directional filter propagation. Core metrics are engineered using optimized DAX formulas (`CALCULATE`, `TOPN`, Time Intelligence) to guarantee sub-second visual rendering.
+            </p>
+            <div class="step-deliverables-box">
+              <strong><i class="fa-solid fa-check"></i> Client Deliverable:</strong>
+              <span>Normalized Star Schema data model and organized DAX Measures Table with documented calculation logic.</span>
+            </div>
+          </div>
+
+          <div class="step-code-visual-preview">
+            <div class="visual-header-bar">
+              <div class="window-controls">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+              <span><i class="fa-solid fa-diagram-project"></i> star_schema_engine.dax</span>
+            </div>
+            <div class="code-mockup-body">
+              <div class="star-schema-interactive">
+                <div class="schema-card">
+                  <div class="schema-card-header"><i class="fa-regular fa-calendar" style="color:var(--neon-cyan);"></i> Dim_Date</div>
+                  <span style="color:var(--neon-green); font-size:0.68rem;">Date_Key [PK]</span><br>
+                  <span style="color:var(--text-dim); font-size:0.68rem;">Month, Year</span>
+                </div>
+                <div class="schema-link-arrow">
+                  <span style="font-size:0.65rem; color:var(--text-dim);">1:*</span>
+                  <div class="pulse-line"></div>
+                </div>
+                <div class="schema-card fact">
+                  <div class="schema-card-header" style="color:var(--neon-cyan);"><i class="fa-solid fa-database"></i> Fact_Sales</div>
+                  <span style="color:var(--neon-cyan); font-size:0.68rem;">Order_ID [PK]</span><br>
+                  <span style="color:var(--text-dim); font-size:0.68rem;">Amount, Qty</span>
+                </div>
+                <div class="schema-link-arrow">
+                  <span style="font-size:0.65rem; color:var(--text-dim);">1:*</span>
+                  <div class="pulse-line"></div>
+                </div>
+                <div class="schema-card">
+                  <div class="schema-card-header"><i class="fa-solid fa-box" style="color:var(--neon-purple);"></i> Dim_Product</div>
+                  <span style="color:var(--neon-purple); font-size:0.68rem;">SKU_Key [PK]</span><br>
+                  <span style="color:var(--text-dim); font-size:0.68rem;">Category, Cost</span>
+                </div>
+              </div>
+              <div style="text-align:center; font-size:0.75rem; color:var(--neon-cyan); margin-top:8px;">
+                <i class="fa-solid fa-shield-halved"></i> 1-to-Many Single Direction Context Transition
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step-card">
+          <div class="step-content">
+            <span class="step-number-tag"><i class="fa-solid fa-palette"></i> STEP 04 • UI/UX ENGINEERING</span>
+            <h3>Executive UI/UX Dashboard Engineering</h3>
+            <p>
+              Designing executive dashboards that apply visual hierarchy and dark-mode high contrast. Each screen is built for rapid interpretation: high-level KPI cards at the top, trend lines in the middle, and granular drill-through matrices at the base, complete with dynamic bookmarks and location slicers.
+            </p>
+            <div class="step-deliverables-box">
+              <strong><i class="fa-solid fa-check"></i> Client Deliverable:</strong>
+              <span>Production-ready `.pbix` or Excel dashboard featuring dynamic page navigation and drill-down matrices.</span>
+            </div>
+          </div>
+
+          <div class="step-code-visual-preview">
+            <div class="visual-header-bar">
+              <div class="window-controls">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+              <span><i class="fa-solid fa-chart-line"></i> executive_command_deck.pbix</span>
+            </div>
+            <div class="code-mockup-body">
+              <div class="dashboard-preview-deck">
+                <div class="dashboard-mini-kpis">
+                  <div class="mini-kpi-box"><small>TOTAL SALES</small><strong>$7.04M</strong></div>
+                  <div class="mini-kpi-box"><small>NET PROFIT</small><strong style="color:var(--neon-green);">$1.24M</strong></div>
+                  <div class="mini-kpi-box"><small>MARGIN %</small><strong style="color:#c084fc;">17.60%</strong></div>
+                </div>
+                <div class="chart-canvas-mockup">
+                  <div class="bar-element" style="height: 40%;"></div>
+                  <div class="bar-element" style="height: 65%;"></div>
+                  <div class="bar-element" style="height: 85%;"></div>
+                  <div class="bar-element" style="height: 55%;"></div>
+                  <div class="bar-element" style="height: 100%;"></div>
+                  <div class="bar-element" style="height: 75%;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-dim); margin-top:4px;">
+                  <span>Jan</span><span>Mar</span><span>May (Peak)</span><span>Jul</span><span>Sep</span><span>Nov</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step-card">
+          <div class="step-content">
+            <span class="step-number-tag"><i class="fa-solid fa-handshake-angle"></i> STEP 05 • REVIEW & HANDOVER</span>
+            <h3>Commercial Insights Briefing & Knowledge Transfer</h3>
+            <p>
+              I don't just deliver a file; I lead a live walkthrough highlighting the core business findings uncovered by the data (such as low-margin product lines, peak rush hours, or high-risk accounts). The client receives user documentation and instructions for ongoing data refreshes.
+            </p>
+            <div class="step-deliverables-box">
+              <strong><i class="fa-solid fa-check"></i> Client Deliverable:</strong>
+              <span>Executive Summary Briefing, data refresh documentation, and post-delivery optimization support.</span>
+            </div>
+          </div>
+
+          <div class="step-code-visual-preview">
+            <div class="visual-header-bar">
+              <div class="window-controls">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+              <span><i class="fa-solid fa-file-shield"></i> executive_briefing_transfer.pdf</span>
+            </div>
+            <div class="code-mockup-body">
+              <div class="outcomes-mockup-list">
+                <div class="outcome-pill-item">
+                  <span><i class="fa-solid fa-clock" style="color:var(--neon-cyan); margin-right:8px;"></i>Morning Rush Shift Optimization</span>
+                  <strong style="color:var(--neon-green); font-family:'JetBrains Mono';">-18% Queue Wait</strong>
+                </div>
+                <div class="outcome-pill-item">
+                  <span><i class="fa-solid fa-coins" style="color:var(--neon-amber); margin-right:8px;"></i>Hardware Vendor Cost Re-negotiation</span>
+                  <strong style="color:var(--neon-cyan); font-family:'JetBrains Mono';">+$85K Preserved</strong>
+                </div>
+                <div class="outcome-pill-item">
+                  <span><i class="fa-solid fa-ship" style="color:var(--neon-blue); margin-right:8px;"></i>Ocean Container Advance Booking</span>
+                  <strong style="color:var(--neon-green); font-family:'JetBrains Mono';">92.7% On-Time SLA</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Production Projects Showcase Section -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-tracker-tag"><i class="fa-solid fa-laptop-code"></i> VERIFIED DELIVERABLES</div>
+        <h2 class="section-title">Production <span class="section-title-highlight">Projects</span></h2>
+        <p class="section-desc">Explore 6 comprehensive production deployments featuring 53 interactive dashboard views, dimensional models, statistical regression graphs, and ETL scripts.</p>
+        <div class="title-glow-line"></div>
+      </div>
+
+      <div class="filter-tabs" role="group" aria-label="Filter projects by category">
+        <button type="button" class="filter-btn active" data-filter="all">All Projects (6)</button>
+        <button type="button" class="filter-btn" data-filter="power-bi">Power BI (4)</button>
+        <button type="button" class="filter-btn" data-filter="python">Python & EDA (1)</button>
+        <button type="button" class="filter-btn" data-filter="excel">Advanced Excel (1)</button>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1: Coffee Shop -->
+        <div class="project-card" data-category="power-bi" data-id="proj1" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Open case study: Coffee Shop Sales Performance &amp; Hourly Flow">
+          <div class="project-thumb-box">
+            <span class="badge-pill">Power BI • Retail Operations</span>
+            <span class="gallery-counter-pill"><i class="fa-solid fa-images"></i> 11 Views</span>
+            <img src="https://i.postimg.cc/rwND4Mfj/dashbwrd.png" alt="Coffee Shop Dashboard Preview" width="640" height="360" loading="lazy" decoding="async">
+            <div class="thumb-overlay" aria-hidden="true"><span class="preview-chip"><i class="fa-solid fa-expand"></i> Quick preview</span></div>
+          </div>
+          <div class="project-body">
+            <h3>Coffee Shop Sales Performance & Hourly Flow</h3>
+            <p>Complete retail intelligence system capturing $236.5K in revenue, 51K transactions, and hourly rush patterns with custom Date tables.</p>
+            <div class="project-kpi-row">
+              <div class="kpi-unit"><small>Revenue</small><strong>$236.5K</strong></div>
+              <div class="kpi-unit"><small>AOV</small><strong>$4.66</strong></div>
+              <div class="kpi-unit"><small>Transactions</small><strong>51K</strong></div>
+            </div>
+            <div class="project-footer">
+              <div class="tag-container"><span class="tech-tag">Time Intelligence</span><span class="tech-tag">11 Assets</span></div>
+              <span class="view-link">Explore Views & Insights <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Enterprise Sales -->
+        <div class="project-card" data-category="power-bi" data-id="proj2" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Open case study: Enterprise Multi-Year Sales &amp; Customer BI">
+          <div class="project-thumb-box">
+            <span class="badge-pill">Power BI • Commercial Sales</span>
+            <span class="gallery-counter-pill"><i class="fa-solid fa-images"></i> 9 Views</span>
+            <img src="https://i.postimg.cc/V6nQSLRd/dashbwrd.png" alt="Sales Performance Preview" width="640" height="360" loading="lazy" decoding="async">
+            <div class="thumb-overlay" aria-hidden="true"><span class="preview-chip"><i class="fa-solid fa-expand"></i> Quick preview</span></div>
+          </div>
+          <div class="project-body">
+            <h3>Enterprise Multi-Year Sales & Customer BI</h3>
+            <p>Regional sales performance analyzing orders across 2012–2014, customer profitability rankings, and Star Schema data architecture.</p>
+            <div class="project-kpi-row">
+              <div class="kpi-unit"><small>Total Sales</small><strong>1.35M</strong></div>
+              <div class="kpi-unit"><small>Orders</small><strong>830</strong></div>
+              <div class="kpi-unit"><small>Top Client</small><strong>Horst Kloss</strong></div>
+            </div>
+            <div class="project-footer">
+              <div class="tag-container"><span class="tech-tag">Star Schema</span><span class="tech-tag">9 Assets</span></div>
+              <span class="view-link">Explore Views & Insights <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Global Logistics -->
+        <div class="project-card" data-category="power-bi" data-id="proj3" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Open case study: Global Sales Operations &amp; Classic Auto Logistics">
+          <div class="project-thumb-box">
+            <span class="badge-pill">Power BI • Supply Chain</span>
+            <span class="gallery-counter-pill"><i class="fa-solid fa-images"></i> 7 Views</span>
+            <img src="https://i.postimg.cc/GtKfYBT6/dashbwrd.png" alt="Global Sales Dashboard Preview" width="640" height="360" loading="lazy" decoding="async">
+            <div class="thumb-overlay" aria-hidden="true"><span class="preview-chip"><i class="fa-solid fa-expand"></i> Quick preview</span></div>
+          </div>
+          <div class="project-body">
+            <h3>Global Sales Operations & Classic Auto Logistics</h3>
+            <p>International distribution dashboard tracking $10.03M across USA & Europe with 92.7% fulfillment tracking and vehicle segment splits.</p>
+            <div class="project-kpi-row">
+              <div class="kpi-unit"><small>Gross Sales</small><strong>$10.03M</strong></div>
+              <div class="kpi-unit"><small>Shipped %</small><strong>92.7%</strong></div>
+              <div class="kpi-unit"><small>Units Sold</small><strong>99K</strong></div>
+            </div>
+            <div class="project-footer">
+              <div class="tag-container"><span class="tech-tag">Treemap</span><span class="tech-tag">7 Assets</span></div>
+              <span class="view-link">Explore Views & Insights <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Excel Modeling -->
+        <div class="project-card" data-category="excel" data-id="proj4" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Open case study: Retail Executive Performance &amp; YOY Growth (Excel)">
+          <div class="project-thumb-box">
+            <span class="badge-pill">Excel • Power Pivot</span>
+            <span class="gallery-counter-pill"><i class="fa-solid fa-images"></i> 6 Views</span>
+            <img src="https://i.postimg.cc/mZjpmHtZ/dashbwrd.png" alt="Excel Executive Dashboard Preview" width="640" height="360" loading="lazy" decoding="async">
+            <div class="thumb-overlay" aria-hidden="true"><span class="preview-chip"><i class="fa-solid fa-expand"></i> Quick preview</span></div>
+          </div>
+          <div class="project-body">
+            <h3>Retail Executive Performance & YOY Growth (Excel)</h3>
+            <p>Engineered using Microsoft Excel Power Pivot & DAX measures to calculate Year-over-Year sales variances and sales rep attribution.</p>
+            <div class="project-kpi-row">
+              <div class="kpi-unit"><small>Sales</small><strong>$2.30M</strong></div>
+              <div class="kpi-unit"><small>Profit</small><strong>$286.4K</strong></div>
+              <div class="kpi-unit"><small>Orders</small><strong>9,994</strong></div>
+            </div>
+            <div class="project-footer">
+              <div class="tag-container"><span class="tech-tag">Power Pivot</span><span class="tech-tag">6 Assets</span></div>
+              <span class="view-link">Explore Views & Insights <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: Retail ROI Waterfall -->
+        <div class="project-card" data-category="power-bi" data-id="proj5" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Open case study: Retail Sales &amp; Product ROI Waterfall Analytics">
+          <div class="project-thumb-box">
+            <span class="badge-pill">Power BI • Dark UI</span>
+            <span class="gallery-counter-pill"><i class="fa-solid fa-images"></i> 8 Views</span>
+            <img src="https://i.postimg.cc/1zDJwgLL/dashbwrd.png" alt="Retail ROI Analytics Dashboard Preview" width="640" height="360" loading="lazy" decoding="async">
+            <div class="thumb-overlay" aria-hidden="true"><span class="preview-chip"><i class="fa-solid fa-expand"></i> Quick preview</span></div>
+          </div>
+          <div class="project-body">
+            <h3>Retail Sales & Product ROI Waterfall Analytics</h3>
+            <p>Advanced dark-mode UI with multi-page navigation, Waterfall profit diagnostic, and Power Query Advanced Editor M-scripts.</p>
+            <div class="project-kpi-row">
+              <div class="kpi-unit"><small>Gross Sales</small><strong>$7.04M</strong></div>
+              <div class="kpi-unit"><small>Profit Margin</small><strong>17.60%</strong></div>
+              <div class="kpi-unit"><small>Net Profit</small><strong>$1.24M</strong></div>
+            </div>
+            <div class="project-footer">
+              <div class="tag-container"><span class="tech-tag">Waterfall & ETL</span><span class="tech-tag">8 Assets</span></div>
+              <span class="view-link">Explore Views & Insights <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: Instagram Analytics (Python) -->
+        <div class="project-card" data-category="python" data-id="proj6" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Open case study: Instagram Reach &amp; Engagement Architecture (Python)">
+          <div class="project-thumb-box">
+            <span class="badge-pill">Python • EDA</span>
+            <span class="gallery-counter-pill"><i class="fa-solid fa-images"></i> 12 Views</span>
+            <img src="https://i.postimg.cc/V6rv2RCY/bay-shart.png" alt="Instagram Reach Distribution Pie Chart Preview" width="640" height="360" loading="lazy" decoding="async">
+            <div class="thumb-overlay" aria-hidden="true"><span class="preview-chip"><i class="fa-solid fa-expand"></i> Quick preview</span></div>
+          </div>
+          <div class="project-body">
+            <h3>Instagram Reach & Engagement Architecture (Python)</h3>
+            <p>Exploratory data analysis uncovering post reach channels, follower acquisition funnels, and statistical content engagement models.</p>
+            <div class="project-kpi-row">
+              <div class="kpi-unit"><small>Home Reach</small><strong>42.9%</strong></div>
+              <div class="kpi-unit"><small>Hashtags</small><strong>33.8%</strong></div>
+              <div class="kpi-unit"><small>Top Post</small><strong>765 Eng.</strong></div>
+            </div>
+            <div class="project-footer">
+              <div class="tag-container"><span class="tech-tag">Pandas</span><span class="tech-tag">Seaborn</span><span class="tech-tag">Regression</span></div>
+              <span class="view-link">Explore Views & Insights <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Project Modal with Side-by-Side Dynamic English Insights -->
+  <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close project details"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-scroll" id="modalScroll">
+        <!-- Side-by-Side Visual Deck -->
+        <div class="modal-interactive-deck">
+          <!-- Left: Carousel & Thumbnails -->
+          <div class="carousel-column">
+            <div class="carousel-container" id="carouselContainer">
+              <button type="button" class="carousel-btn carousel-prev" id="prevBtn" aria-label="Previous view"><i class="fa-solid fa-chevron-left"></i></button>
+              <div class="carousel-stage" id="carouselStage">
+                <img id="activeCarouselImg" class="carousel-img" src="" alt="Project Detailed View" decoding="async" draggable="false">
+              </div>
+              <button type="button" class="carousel-btn carousel-next" id="nextBtn" aria-label="Next view"><i class="fa-solid fa-chevron-right"></i></button>
+              <button type="button" class="zoom-btn" id="zoomBtn" aria-label="Zoom in on this view" aria-pressed="false"><i class="fa-solid fa-expand"></i></button>
+              <div class="carousel-caption-bar" id="carouselCaption" aria-live="polite">Image 1 of 1</div>
+            </div>
+            <div class="thumbnails-strip" id="modalThumbnailsStrip"></div>
+          </div>
+
+          <!-- Right: Dynamic Image Insights in English -->
+          <div class="insights-sidebar-column">
+            <div class="live-status-badge">
+              <i class="fa-solid fa-chart-line"></i> ACTIVE VIEW INSIGHTS
+            </div>
+            <h3 id="dynamicInsightTitle">Active View Title</h3>
+            <p id="dynamicInsightDesc">Technical and operational breakdown of the active dashboard visual...</p>
+
+            <div class="active-insight-metrics-card">
+              <small><i class="fa-solid fa-crosshairs"></i> Operational Takeaway</small>
+              <strong id="dynamicInsightTakeaway">Actionable Business Outcome</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Project Details -->
+        <div class="modal-body">
+          <div class="modal-category-text" id="modalCategory">Category</div>
+          <h2 id="modalTitle">Project Title</h2>
+
+          <div class="modal-grid-details">
+            <div class="modal-info-block">
+              <h4><i class="fa-solid fa-bullseye"></i> Commercial Problem & Analytical Scope</h4>
+              <p id="modalBusinessCase"></p>
+
+              <h4><i class="fa-solid fa-gears"></i> Technical Implementation & Architecture</h4>
+              <ul id="modalTechList"></ul>
+
+              <h4><i class="fa-solid fa-chart-line"></i> Business Impact & Decision Outcomes</h4>
+              <p id="modalImpact"></p>
+            </div>
+
+            <div class="modal-sidebar">
+              <h5>Production Metrics</h5>
+              <ul class="modal-metrics-list" id="modalMetrics"></ul>
+
+              <h5>Applied Competencies</h5>
+              <div class="tag-container" id="modalTags" style="margin-top: 10px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h3>Let's Collaborate</h3>
+          <p>
+            Looking to architect production Power BI reporting, resolve bottlenecks in your existing DAX models, or turn unorganized operational data into a competitive advantage? I'm available for both corporate roles and consulting projects.
+          </p>
+
+          <div class="contact-cards-list">
+            <a href="https://wa.me/201014809916?text=Hi%20Abdallah,%20I%20reviewed%20your%20BI%20portfolio" target="_blank" rel="noopener noreferrer" class="contact-card-item" style="border-color: rgba(37, 211, 102, 0.4);">
+              <div class="contact-card-icon" style="background: rgba(37, 211, 102, 0.15); color: #25d366;"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="contact-card-content">
+                <small>Instant Response WhatsApp</small>
+                <strong>+20 1014809916</strong>
+              </div>
+            </a>
+
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=abdallahhelsayedd@gmail.com&su=Inquiry:%20Data%20Analytics%20Project" target="_blank" rel="noopener noreferrer" class="contact-card-item">
+              <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-card-content">
+                <small>Direct Email</small>
+                <strong>abdallahhelsayedd@gmail.com</strong>
+              </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/abdallah-elsayed-d1" target="_blank" rel="noopener noreferrer" class="contact-card-item">
+              <div class="contact-card-icon"><i class="fa-brands fa-linkedin"></i></div>
+              <div class="contact-card-content">
+                <small>LinkedIn Network</small>
+                <strong>linkedin.com/in/abdallah-elsayed-d1</strong>
+              </div>
+            </a>
+
+            <a href="https://github.com/Abdallah-Elsayed-1" target="_blank" rel="noopener noreferrer" class="contact-card-item">
+              <div class="contact-card-icon"><i class="fa-brands fa-github"></i></div>
+              <div class="contact-card-content">
+                <small>Open Source Code Repository</small>
+                <strong>github.com/Abdallah-Elsayed-1</strong>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xvkzpjar" method="POST">
+          <div class="form-group">
+            <label for="name">Your Name / Organization</label>
+            <input type="text" name="name" id="name" autocomplete="name" placeholder="e.g. Sarah Jenkins (Logistics Director)" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Work Email</label>
+            <input type="email" name="email" id="email" autocomplete="email" inputmode="email" placeholder="name@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Project Scope / Engagement Type</label>
+            <input type="text" name="_subject" id="subject" placeholder="Power BI Architecture / Full-Time Analytics Role / Consultation" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Project Context & Goals</label>
+            <textarea name="message" id="message" rows="4" placeholder="Describe the datasets, reporting bottlenecks, or specific KPI goals you are targeting..." required></textarea>
+          </div>
+          <button type="submit" id="submitBtn" class="btn btn-primary" style="justify-content: center; margin-top: 8px;">
+            <i class="fa-solid fa-paper-plane"></i> Send Direct Inquiry
+          </button>
+          
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Abdallah Elsayed • Business Intelligence Specialist & Data Analyst. Relational Architecture & Commercial Strategy.</p>
+    </div>
+  </footer>
+
+  <!-- Project data, modal, carousel, filters & Formspree handling -->
+  <script>
+    const projectsData = {
+      proj1: {
+        title: "Coffee Shop Sales Performance & Hourly Flow",
+        category: "Power BI • Retail Operations",
+        businessCase: "Designed for coffee chain management to optimize staffing schedules and eliminate store bottlenecks by analyzing 51K transactions across Astoria, Hell's Kitchen, and Lower Manhattan stores.",
+        features: [
+          "Developed custom M-script Calendar table in Power Query with granular hourly segments.",
+          "Constructed DAX Measures for Total Transactions, Average Order Value ($4.66), and Total Revenue ($236.5K).",
+          "Engineered interactive hourly time slicers identifying peak rush intervals between 08:00 AM and 10:00 AM.",
+          "Modeled relational Star Schema decoupling transaction facts from store locations and product classifications."
+        ],
+        impact: "Allowed store supervisors to align morning barista shifts to peak demand hours, cutting queue wait times by 18%.",
+        metrics: [
+          { label: "Total Revenue", val: "$236.5K" },
+          { label: "Transactions", val: "51,000" },
+          { label: "Average Order Value", val: "$4.66" },
+          { label: "Units Sold", val: "72,000" },
+          { label: "Peak Window", val: "8:00 - 10:00 AM" }
+        ],
+        tags: ["Power BI", "DAX", "Star Schema", "Power Query", "Time Intelligence", "Retail Ops"],
+        gallery: [
+          { 
+            url: "https://i.postimg.cc/rwND4Mfj/dashbwrd.png", 
+            desc: "Main Executive Dashboard Overview", 
+            insight: "Comprehensive multi-store performance tracking 51,000 retail transactions generating $236,500 across Hell's Kitchen, Astoria, and Lower Manhattan branches. The primary dashboard highlights an Average Order Value (AOV) of $4.66 with Coffee accounting for over 42% of gross product sales, followed by Tea and Bakery items.",
+            takeaway: "Empowers executive leadership with immediate revenue clarity across branches and validates product mix stability."
+          },
+          { 
+            url: "https://i.postimg.cc/Jz5sXMpn/kpis.png", 
+            desc: "Calculated Core KPI Measures", 
+            insight: "Granular view of calculated DAX measures: Total Revenue ($236.5K), Total Transaction Volume (51K orders), and Units Sold (72K units). All measures are housed in a dedicated DAX Measures Table to optimize calculation overhead and guarantee instantaneous filter evaluations.",
+            takeaway: "Establishes verified baseline benchmarks for store performance audits and weekly retail targets."
+          },
+          { 
+            url: "https://i.postimg.cc/Z5xWN4w8/bals%CA%BFh.png", 
+            desc: "Hourly Flow Analysis (Rush Hours)", 
+            insight: "Hourly transaction flow visualization proving that the operational morning rush peaks sharply between 08:00 AM and 10:00 AM, capturing over 32% of total daily transaction count, accompanied by a secondary minor surge during afternoon break hours.",
+            takeaway: "Directly guided shift rescheduling, allocating senior baristas to morning rushes and cutting customer queue wait times by 18%."
+          },
+          { 
+            url: "https://i.postimg.cc/rwND4MfZ/fltr-b-allwkysn.png", 
+            desc: "Location-Based Filter Dynamic View", 
+            insight: "Dynamic cross-filtering applied to the Hell's Kitchen location. All cards, charts, and product proportions recalculate immediately to display location-specific revenues, localized ticket size, and unique customer demand patterns without affecting global data integrity.",
+            takeaway: "Enables branch managers to conduct localized reviews independently of other regional branches."
+          },
+          { 
+            url: "https://i.postimg.cc/13r8FsvC/fltr-balsa%CA%BFh.png", 
+            desc: "Hourly Slicer Interactivity", 
+            insight: "Granular hourly slicing demonstrating how afternoon orders shift heavily toward cold-brew beverages and packaged snacks, recalculating the effective ticket margin dynamically within the active Filter Context.",
+            takeaway: "Calibrates daily bakery prep schedules to prevent end-of-day pastry waste while avoiding midday out-of-stock events."
+          },
+          { 
+            url: "https://i.postimg.cc/y8yDRsLf/ftlr.png", 
+            desc: "Dynamic Date Range Filter", 
+            insight: "Interactive calendar range slicer wired to a dedicated date dimension table, allowing users to evaluate custom promotional periods, weekday vs. weekend performance splits, and holiday spikes on the fly.",
+            takeaway: "Facilitates seamless week-over-week and month-over-month comparative reviews."
+          },
+          { 
+            url: "https://i.postimg.cc/g2HxhmgB/mwdylynj.png", 
+            desc: "Star Schema Relational Data Model", 
+            insight: "Normalized Star Schema architecture connecting the central Fact_Sales table via 1-to-many single-directional relationships to Dim_Location, Dim_Product, and Dim_Calendar dimension tables, eliminating bidirectional relationship ambiguity.",
+            takeaway: "Maximizes VertiPaq engine columnar compression and ensures sub-second visual refresh rates across all slicers."
+          },
+          { 
+            url: "https://i.postimg.cc/QdJF7hfp/adfansyd-kalmdr.png", 
+            desc: "Advanced Calendar Generation in M-Code", 
+            insight: "Custom Power Query M-Language script generating an extensive date dimension table with attributes for Day Name, Month Sorting, Fiscal Quarters, Weekend Flags, and granular Hourly intervals.",
+            takeaway: "Provides the required dimensional backbone for advanced Time-Intelligence DAX calculations and period comparisons."
+          },
+          { 
+            url: "https://i.postimg.cc/dVjhCw5r/adfansyd-adytwr.png", 
+            desc: "Advanced Editor ETL Logic", 
+            insight: "Review of data transformation steps inside Power Query Advanced Editor: type casting, parsing timestamps, handling null records, and standardizing categorical columns for frictionless data modeling.",
+            takeaway: "Fully automates the ingestion pipeline, ensuring one-click scheduled refreshes without manual intervention."
+          },
+          { 
+            url: "https://i.postimg.cc/6pf8ZtMv/data.png", 
+            desc: "Cleaned Transaction Fact Table View", 
+            insight: "Sanitized tabular view of the Fact_Sales table showing foreign keys, quantities, unit prices, and line totals, with non-essential text columns removed to keep the in-memory footprint minimal.",
+            takeaway: "Reduces memory consumption and boosts report performance in Power BI Service."
+          },
+          { 
+            url: "https://i.postimg.cc/wjpt37Q3/haf-v.png", 
+            desc: "Dimension Entity Structure", 
+            insight: "Verified dimension tables containing unique primary keys, product hierarchies, and branch metadata, verified to contain zero duplicate IDs to guarantee 100% mathematical integrity during cross-table aggregation.",
+            takeaway: "Eliminates calculation discrepancies and guarantees drill-through precision."
+          }
+        ]
+      },
+      proj2: {
+        title: "Enterprise Multi-Year Sales & Customer BI",
+        category: "Power BI • Commercial Sales",
+        businessCase: "Designed for commercial directors to track historical revenue trends across Europe, ranking top customer lifetime value and identifying regional growth trajectories.",
+        features: [
+          "Multi-year comparative time-intelligence tracking annual sales performance from 2012 to 2014.",
+          "Customer revenue ranking identifying key accounts like Horst Kloss (117K) and Jose Pavarotti (116K).",
+          "Geographic regional slicing covering key European hubs (Belgium, France, Germany).",
+          "Fully documented Power Query transformation steps and dimensional Star Schema modeling."
+        ],
+        impact: "Helped commercial leadership establish tier-1 retention policies for top accounts generating over 35% of total volume.",
+        metrics: [
+          { label: "Total Revenue", val: "1.35M" },
+          { label: "Orders Count", val: "830" },
+          { label: "Top City", val: "Paris" },
+          { label: "Top Customer", val: "Horst Kloss" },
+          { label: "Units Sold", val: "51,000" }
+        ],
+        tags: ["Power BI", "DAX", "Data Modeling", "Customer Lifetime Value", "Power Query"],
+        gallery: [
+          { 
+            url: "https://i.postimg.cc/V6nQSLRd/dashbwrd.png", 
+            desc: "Sales Analysis Dashboard View", 
+            insight: "Comprehensive multi-year enterprise performance showing 1.35M in gross turnover across 830 purchase orders and 51,000 units sold. The visual maps regional sales density across European capitals, with Paris emerging as the leading metropolitan market.",
+            takeaway: "Gives commercial leadership immediate visibility over historical growth trends and regional revenue concentrations."
+          },
+          { 
+            url: "https://i.postimg.cc/LXLKq6T4/Ssnt-2014.png", 
+            desc: "2014 Annual Performance View", 
+            insight: "Isolated 2014 annual perspective revealing peak corporate sales acceleration, driven by large wholesale account expansion in Q3 and Q4, and highlighting the highest-selling commercial product lines.",
+            takeaway: "Quantifies the positive return on 2014 business expansion initiatives and new client acquisition programs."
+          },
+          { 
+            url: "https://i.postimg.cc/MTV2cKDM/snt-2012.png", 
+            desc: "2012 Historical Baseline Analysis", 
+            insight: "Historical 2012 baseline evaluation tracking initial contract sizes and client repeat orders, establishing the foundation for 3-year Compound Annual Growth Rate (CAGR) calculations.",
+            takeaway: "Validates historical progress against corporate targets with reliable reference baselines."
+          },
+          { 
+            url: "https://i.postimg.cc/0QDR62fN/bljyka-2014.png", 
+            desc: "Belgium Regional Focus (2014)", 
+            insight: "Targeted geographic focus on Belgium for 2014, showing high average order values and strong client order consolidation, indicating high distributor efficiency.",
+            takeaway: "Directed commercial account executives to prioritize high-yield B2B contracts across the Benelux region."
+          },
+          { 
+            url: "https://i.postimg.cc/qqrf2VbJ/fltr-bal%CA%BFmyl.png", 
+            desc: "Customer Drill-down Slicing", 
+            insight: "Deep customer ranking powered by TOPN calculations, identifying key accounts Horst Kloss ($117K) and Jose Pavarotti ($116K) as the primary revenue anchors, accounting for over 17% of total sales volume.",
+            takeaway: "Prompted the deployment of executive VIP account managers to protect high-yield corporate relationships."
+          },
+          { 
+            url: "https://i.postimg.cc/7608CYVT/fltr-balryjn.png", 
+            desc: "Country & Region Cross-Filtering", 
+            insight: "Interactive country-level cross-filtering highlighting France, Germany, and Belgium as the primary European revenue pillars, dynamically adjusting all regional breakdown cards.",
+            takeaway: "Helped optimize regional sales travel budgets and distribution territory assignments."
+          },
+          { 
+            url: "https://i.postimg.cc/j5P0WdX2/data-mwdylynj.png", 
+            desc: "Star Schema Relationships", 
+            insight: "Kimball-standard Star Schema linking the central Orders fact table to Customers, Products, and Date dimensions via clean 1-to-many relationships, completely avoiding bidirectional filter traps.",
+            takeaway: "Prevents duplicate order counting and eliminates report performance degradation."
+          },
+          { 
+            url: "https://i.postimg.cc/V6nQSLR5/data-mwdylynj-atdh.png", 
+            desc: "Expanded Relational Model View", 
+            insight: "Detailed perspective on primary and foreign key mappings, demonstrating role-playing date relationships via inactive relationships managed dynamically through USERELATIONSHIP measures.",
+            takeaway: "Enables precise dual tracking of Order Date and Shipping Date within the same data model."
+          },
+          { 
+            url: "https://i.postimg.cc/HxXDJs2x/bawr-kwyry.png", 
+            desc: "Power Query ETL Cleaning Pipeline", 
+            insight: "ETL cleansing pipeline resolving multi-language character encodings, deduplicating customer profiles, and standardizing postal and country codes across international registries.",
+            takeaway: "Establishes a validated single source of truth for all corporate customer metrics."
+          }
+        ]
+      },
+      proj3: {
+        title: "Global Sales Operations & Classic Auto Logistics",
+        category: "Power BI • Logistics & Supply Chain",
+        businessCase: "Built for an international classic automotive and scale-model distributor to track international order fulfillment, cancellation risks, and geographic market shares.",
+        features: [
+          "Treemap regional visualization highlighting the USA, Spain, France, and Australia as core revenue drivers.",
+          "Fulfillment donut chart displaying a 92.7% shipped status rate and alerting to unresolved orders.",
+          "Timeline slicers isolating 2005 performance trends and product category cross-filtering.",
+          "Normalized data schema connecting customer profiles, product line dimensions, and orders."
+        ],
+        impact: "Allowed logistics teams to spot regional fulfillment delays in real time, sustaining a 92.7% successful delivery SLA.",
+        metrics: [
+          { label: "Total Sales", val: "$10.03M" },
+          { label: "Shipped Rate", val: "92.7%" },
+          { label: "Average Order Value", val: "$32.68K" },
+          { label: "Top Market", val: "USA ($3.63M)" },
+          { label: "Total Orders", val: "307" }
+        ],
+        tags: ["Power BI", "Logistics", "Treemap", "Supply Chain", "Order Status"],
+        gallery: [
+          { 
+            url: "https://i.postimg.cc/GtKfYBT6/dashbwrd.png", 
+            desc: "Global Operations Dashboard", 
+            insight: "Global operations command monitor tracking $10.03M in gross turnover across 307 ocean shipping orders and 99,000 units. The fulfillment status donut reveals an overall 92.7% shipped rate, with the United States leading at $3.63M, followed by Spain, France, and Australia.",
+            takeaway: "Gives supply chain executives real-time visibility over international fulfillment SLAs and unbilled backlog."
+          },
+          { 
+            url: "https://i.postimg.cc/brg5bGSW/dashbwrd-balwqt.png", 
+            desc: "Timeline Series Dynamic Tracking", 
+            insight: "Chronological timeline of international dispatches revealing significant seasonal surges in Q4 as distributors scale inventory ahead of holiday retail rushes.",
+            takeaway: "Enabled proactive container booking with ocean freight carriers weeks in advance, avoiding spot-market rate spikes."
+          },
+          { 
+            url: "https://i.postimg.cc/qqwFntC4/fltr-klasyk-kar-w-amryka.png", 
+            desc: "USA & Classic Cars Cross-Filter", 
+            insight: "Cross-filtered analysis isolating Classic Cars in the US market, demonstrating that this product line generates over 38% of total US sales volume at premium unit profit margins.",
+            takeaway: "Prioritized container staging and warehouse safety stock on the US East Coast for high-margin vintage product lines."
+          },
+          { 
+            url: "https://i.postimg.cc/kGsH8Vt7/fltr-al%CA%BFrbyat-wastralya-w-2005.png", 
+            desc: "Australia 2005 Segmented View", 
+            insight: "Regional inspection of the 2005 Australian shipping ledger, showing steady order growth and maintaining a 100% on-time delivery rate with zero canceled containers.",
+            takeaway: "Validated Australian 3PL logistics partner performance, leading to a long-term carrier contract renewal."
+          },
+          { 
+            url: "https://i.postimg.cc/2yrJVdyM/balwqt-w-astralya.png", 
+            desc: "Time Series Interactivity (Australia)", 
+            insight: "Tracking port transit and customs clearance times for Pacific cargo shipments, identifying transit variations between European departure hubs and Sydney docks.",
+            takeaway: "Calibrated delivery time estimates communicated to Asia-Pacific buyers to reflect real-world shipping transit logs."
+          },
+          { 
+            url: "https://i.postimg.cc/brg5bGS5/data.png", 
+            desc: "Tabular Relational View", 
+            insight: "Line-item shipping ledger showing order numbers, status flags (Shipped, In Process, Cancelled), freight fees, and container volumes.",
+            takeaway: "Ensured automated freight invoice reconciliation against internal warehouse ERP records down to the dollar."
+          },
+          { 
+            url: "https://i.postimg.cc/nr2W7s9S/data-bawr-kwyry.png", 
+            desc: "Power Query Data Cleansing Steps", 
+            insight: "ETL procedures parsing international addresses, standardizing order status codes, and handling missing ship dates to maintain clean geographic reporting.",
+            takeaway: "Constructed an automated ETL pipeline that eliminates data preparation errors from incoming ERP exports."
+          }
+        ]
+      },
+      proj4: {
+        title: "Retail Executive Performance & YOY Growth (Excel)",
+        category: "Excel • Power Pivot Modeling",
+        businessCase: "Designed to provide leadership with corporate-grade analytics directly within Microsoft Excel using Power Pivot and DAX modeling to assess Year-over-Year (YOY) sales and profit variances.",
+        features: [
+          "Constructed Power Pivot data model connecting sales facts with customer demographics and geographic dimensions.",
+          "Authored DAX measures for YOY Growth %, Profit Margin (12.46%), and Sales Rep attributions.",
+          "Dual-axis Combo Chart detailing monthly revenue progression vs. net profit margins.",
+          "Top 5 Cities profitability ranking led by New York City ($62.0K) and Los Angeles ($30.4K)."
+        ],
+        impact: "Allowed enterprise managers without dedicated BI software licenses to access advanced dimensional analytics inside Excel.",
+        metrics: [
+          { label: "Total Sales", val: "$2,297,200" },
+          { label: "Total Profit", val: "$286,397" },
+          { label: "Profit Margin", val: "12.46%" },
+          { label: "Total Orders", val: "9,994" },
+          { label: "Top Rep Sales", val: "$725,457" }
+        ],
+        tags: ["Excel", "Power Pivot", "DAX", "YOY Growth", "Data Modeling"],
+        gallery: [
+          { 
+            url: "https://i.postimg.cc/mZjpmHtZ/dashbwrd.png", 
+            desc: "Excel Executive Insight Dashboard", 
+            insight: "Enterprise-grade dashboard built inside Microsoft Excel using Power Pivot and DAX, capturing $2,297,200 in gross revenue and $286,397 in net profit (12.46% profit margin) across 9,994 orders. New York City leads metropolitan profits with $62.0K, followed by Los Angeles at $30.4K.",
+            takeaway: "Empowers corporate managers to run sophisticated multi-dimensional BI without specialized cloud software licenses."
+          },
+          { 
+            url: "https://i.postimg.cc/59gKsC6b/yoy.png", 
+            desc: "YOY Growth Metrics & DAX Measures", 
+            insight: "Dynamic Year-over-Year (YOY) calculations using CALCULATE and SAMEPERIODLASTYEAR, isolating percentage and dollar variances across equivalent financial periods with color-coded variance flags.",
+            takeaway: "Provides rapid identification of lagging months compared to the prior year to take corrective commercial actions."
+          },
+          { 
+            url: "https://i.postimg.cc/MZ539QvS/mesures.png", 
+            desc: "DAX Measures Table in Power Pivot", 
+            insight: "Organized DAX calculation library within Power Pivot, containing standardized formulas for gross sales, landed cost, net margin %, and cumulative year-to-date totals.",
+            takeaway: "Ensures uniform formula logic across all connected Pivot Tables and Pivot Charts in the workbook."
+          },
+          { 
+            url: "https://i.postimg.cc/Df6pxX8y/mwdylynj.png", 
+            desc: "Excel Relational Data Model", 
+            insight: "Multi-table relational schema inside Power Pivot linking Fact_Sales to Customers, Products, and Sales Representatives via 1-to-many relationships without requiring resource-heavy VLOOKUP formulas.",
+            takeaway: "Maintains high workbook responsiveness and keeps file size under a few megabytes."
+          },
+          { 
+            url: "https://i.postimg.cc/44P2W9mx/katyjwry.png", 
+            desc: "Category Analysis (Chairs & Phones)", 
+            insight: "Product category audit proving that Chairs ($328K) and Phones ($330K) are the core volume generators, with Phones delivering significantly higher net margins per transaction.",
+            takeaway: "Guided marketing promotions toward higher-margin electronics while utilizing chairs for baseline operational absorption."
+          },
+          { 
+            url: "https://i.postimg.cc/HsLZRkyD/hwm-awfys.png", 
+            desc: "Home Office Segment Filtering", 
+            insight: "Targeted segmentation of corporate and remote home-office purchases, revealing steady margin contributions and consistent order replacement cadences.",
+            takeaway: "Formulated corporate B2B discount bundles for remote teams to lock in recurring supply orders."
+          }
+        ]
+      },
+      proj5: {
+        title: "Retail Sales & Product ROI Waterfall Analytics",
+        category: "Power BI • Dark UI & ETL",
+        businessCase: "High-contrast dark-mode diagnostic system built to pinpoint product line profitability and landed cost burdens across multi-million dollar electronics portfolios.",
+        features: [
+          "Waterfall Chart breaking down individual product margins across Cameras, Monitors, and Laptops.",
+          "Synchronized page navigation between Overview, Performance Insights, and Details tabs.",
+          "Multi-year slicer (2022, 2023, 2024) with dynamic bookmarking.",
+          "Power Query Advanced Editor (M-Language) scripts optimizing table relationships and types."
+        ],
+        impact: "Surfaced 2 low-margin hardware categories, giving commercial leads the data needed to renegotiate vendor costs.",
+        metrics: [
+          { label: "Total Sales", val: "$7.04M" },
+          { label: "Net Profit", val: "$1.24M" },
+          { label: "Profit Margin", val: "17.60%" },
+          { label: "Total Cost", val: "$5.80M" },
+          { label: "Units Sold", val: "11,000" }
+        ],
+        tags: ["Power BI", "Waterfall", "Dark UI", "Advanced Editor", "ETL", "M-Code"],
+        gallery: [
+          { 
+            url: "https://i.postimg.cc/1zDJwgLL/dashbwrd.png", 
+            desc: "Dark UI Executive Sales Dashboard", 
+            insight: "High-contrast executive interface evaluating an electronics catalog generating $7.04M in sales against $5.80M in total costs, achieving $1.24M net profit (17.60% profit margin) across 11,000 units sold, with dynamic page navigation buttons.",
+            takeaway: "Delivers an executive-level boardroom presentation format that highlights margin health instantly."
+          },
+          { 
+            url: "https://i.postimg.cc/jjyZPWGB/byrfwrmans-ansayts.png", 
+            desc: "Waterfall Profit Diagnostic View", 
+            insight: "Waterfall diagnostic visualization breaking down net margin contribution step-by-step by product line, showing strong positive margins from Cameras and Laptops while exposing two accessories dragging down net margins.",
+            takeaway: "Armored commercial directors with exact data to renegotiate supplier contracts on margin-diluting categories."
+          },
+          { 
+            url: "https://i.postimg.cc/Bv2MH8rf/dytylz.png", 
+            desc: "Detailed Product Inventory Matrix", 
+            insight: "Granular inventory matrix analyzing individual SKUs with sales volume, landed cost, return rates, and net margin %, identifying slow-moving and fast-moving inventory tiers.",
+            takeaway: "Facilitated clear inventory markdown planning on slow stock to free up operating capital."
+          },
+          { 
+            url: "https://i.postimg.cc/7LSm0CFk/labtwb-dytylz.png", 
+            desc: "Laptop Segment Deep-Dive", 
+            insight: "Focused analysis of the laptop segment representing the largest revenue block, comparing performance between budget configurations and enterprise workstations.",
+            takeaway: "Allocated holiday marketing spend toward high-margin business laptops with resilient margins."
+          },
+          { 
+            url: "https://i.postimg.cc/s25w7Bkz/mby%CA%BFat-2022.png", 
+            desc: "2022 Annual Sales Breakdown", 
+            insight: "Isolating 2022 performance to assess post-disruption logistics recovery and evaluating the impact of elevated international shipping tariffs on final margins.",
+            takeaway: "Documented historical landed cost variances to benchmark future international freight contracts."
+          },
+          { 
+            url: "https://i.postimg.cc/Bv2MH8d7/2022-alktrwnyks.png", 
+            desc: "2022 Electronics Category View", 
+            insight: "Targeted cross-filtering isolating display monitors and consumer accessories during Q4 promotional periods, measuring promotional discount sensitivity.",
+            takeaway: "Identified optimal discount thresholds that drive revenue volume without sacrificing profitability."
+          },
+          { 
+            url: "https://i.postimg.cc/Zq6Vp912/bawr-kwyry.png", 
+            desc: "Power Query Cleansing Pipeline", 
+            insight: "ETL script parsing multiple vendor price sheets, standardizing currency conversions, and reconciling SKU codes across legacy inventory records.",
+            takeaway: "Eliminated over 4 hours of weekly manual spreadsheet consolidation for the financial reporting team."
+          },
+          { 
+            url: "https://i.postimg.cc/bv13kGK5/adfansd-adybtwr.png", 
+            desc: "Advanced Editor M-Language Code", 
+            insight: "Documented M-code logic in the Advanced Editor verifying column data types, handling missing supplier costs, and ensuring pipeline stability for future data refreshes.",
+            takeaway: "Adheres to enterprise-grade data engineering best practices for audit-proof financial reporting."
+          }
+        ]
+      },
+      proj6: {
+        title: "Instagram Reach & Audience Engagement Architecture",
+        category: "Python • Exploratory Data Analysis & Regression",
+        businessCase: "An end-to-end data science study analyzing organic traffic distribution channels, content dwell metrics, and follower acquisition funnels across real post data.",
+        features: [
+          "Data cleaning and deduplication using Pandas (purged duplicate rows and verified data types).",
+          "Synthesized derived features: Caption Word Count, Hashtags Count, and cumulative Engagement rates.",
+          "Linear regression modeling (sns.lmplot) uncovering the viral conversion chain: Shares → Profile Visits → Follows.",
+          "Evaluated traffic dominance showing Home Feed and Hashtags generate the highest baseline conversion."
+        ],
+        impact: "Identified high-conversion content frameworks driving 765 peak engagement actions and 214 direct new followers from a single post.",
+        metrics: [
+          { label: "Home Reach Share", val: "42.9%" },
+          { label: "Hashtags Share", val: "33.8%" },
+          { label: "Explore Share", val: "20.2%" },
+          { label: "Peak Post Engagement", val: "765 Actions" },
+          { label: "Max Post Follows", val: "214 Follows" }
+        ],
+        tags: ["Python", "Pandas", "NumPy", "Seaborn", "Matplotlib", "EDA", "Linear Regression"],
+        gallery: [
+          { 
+            url: "https://i.postimg.cc/V6rv2RCY/bay-shart.png", 
+            desc: "Impression Source Breakdown (Pie Distribution)", 
+            insight: "Proportional split of reach channels showing Home feed (42.9%) and Hashtags (33.8%) delivering over 76% of organic impressions, with Explore contributing 20.2%.",
+            takeaway: "Directs audience retention focus toward followers and precise hashtag groups rather than relying on Explore traffic."
+          },
+          { 
+            url: "https://i.postimg.cc/Y9G0T3Wk/bar-shart.png", 
+            desc: "Traffic Source Volume Comparison (Bar Chart)", 
+            insight: "Aggregated impression metrics confirming Home feed as the dominant single channel for raw reach, followed closely by targeted hashtag searches.",
+            takeaway: "Validates the primary growth pillars necessary to sustain stable reach volume."
+          },
+          { 
+            url: "https://i.postimg.cc/0QMjhfwQ/shkl-aldata.png", 
+            desc: "Raw Dataset Inspection & Structure", 
+            insight: "Initial tabular review examining schema columns, identifying null entries, timestamp discrepancies, and categorical distributions across the dataframe.",
+            takeaway: "Ensured high baseline data hygiene before passing tables into the analysis pipeline."
+          },
+          { 
+            url: "https://i.postimg.cc/9MR0sp7F/b%CA%BFd-alklynynj.png", 
+            desc: "Cleaned Data Pipeline (Post-Cleansing)", 
+            insight: "Clean tabular output showing normalized data types, purged duplicate observations, and verified structural integrity ready for statistical wrangling.",
+            takeaway: "Eliminates potential outlier skew and ensures calculation accuracy across all charts."
+          },
+          { 
+            url: "https://i.postimg.cc/W3Fzxnkp/b%CA%BFd-aladafh.png", 
+            desc: "Feature Engineering & Derived Metrics", 
+            insight: "Display of synthesized metrics including caption word length, hashtag quantity bins, and normalized engagement percentage ratios.",
+            takeaway: "Expands analytical depth to uncover latent behavior patterns."
+          },
+          { 
+            url: "https://i.postimg.cc/W3Fzxnk4/twb-bwst.png", 
+            desc: "Top Performing Posts Ranking", 
+            insight: "High-yield posts analysis showing top content generating 765 total engagements and 214 direct follower acquisitions.",
+            takeaway: "Provides a blueprint of the topics and structures most likely to convert cold traffic into loyal followers."
+          },
+          { 
+            url: "https://i.postimg.cc/G2WtRyF2/layks-balambryshnz.png", 
+            desc: "Likes vs. Total Impressions Correlation", 
+            insight: "Scatter and regression plot illustrating the linear correlation between post like volume and broad algorithm distribution spikes.",
+            takeaway: "Highlights immediate positive user signals as a vital component for discovery push."
+          },
+          { 
+            url: "https://i.postimg.cc/JnD0SqkC/alhfz-balambryshnz.png", 
+            desc: "Saves vs. Total Impressions Correlation", 
+            insight: "Strong positive relationship between content save frequency and extended algorithm lifecycle visibility across the platform.",
+            takeaway: "Supports focusing on educational carousel assets designed for bookmarking."
+          },
+          { 
+            url: "https://i.postimg.cc/hjkvndLG/%CA%BFlaqt-alkabshn-b-allayks.png", 
+            desc: "Caption Word Count vs. Likes Correlation", 
+            insight: "Evaluating copy length against engagement, demonstrating optimal like distribution around concise, punchy summaries under 45 words.",
+            takeaway: "Refined copy formatting to boost dwell time while keeping messages scannable."
+          },
+          { 
+            url: "https://i.postimg.cc/50YyD3CX/%CA%BFlaqt-alaksblw-ballayks.png", 
+            desc: "Explore Impressions vs. Likes Modeling", 
+            insight: "Linear regression verifying that posts with sustained early like velocity gain significantly higher Explore tab exposure.",
+            takeaway: "Emphasizes the crucial role of the initial 60-minute publishing window."
+          },
+          { 
+            url: "https://i.postimg.cc/85JcxH6F/%CA%BFlaqt-alshyr-b-zyart-alakwnt.png", 
+            desc: "Shares vs. Profile Visits Modeling", 
+            insight: "High statistical correlation showing content shares operate as the direct bridge driving external viewers to check the account profile.",
+            takeaway: "Directs calls-to-action toward sharing to build top-of-funnel discovery."
+          },
+          { 
+            url: "https://i.postimg.cc/gJXj1DZ6/%CA%BFlaqt-alfwlwz-b-zyart-alakwnt.png", 
+            desc: "Profile Visits to New Follows Conversion", 
+            insight: "Final step of the viral funnel: strong linear alignment between landing profile visits and successful follower conversions.",
+            takeaway: "Validates optimized account bio and top pinned resources to capture inbound visitors."
+          }
+        ]
+      }
+    };
+
+    /* =========================================================
+       Helpers
+       ========================================================= */
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    /* =========================================================
+       Project modal + carousel
+       ========================================================= */
+    const modal = $('#projectModal');
+    const modalScroll = $('#modalScroll');
+    const carouselContainer = $('#carouselContainer');
+    const carouselStage = $('#carouselStage');
+    const carouselImg = $('#activeCarouselImg');
+    const thumbsContainer = $('#modalThumbnailsStrip');
+    const zoomBtn = $('#zoomBtn');
+
+    let activeProjectKey = null;
+    let currentSlideIndex = 0;
+    let lastFocusedEl = null;
+    let savedScrollY = 0;
+    let isZoomed = false;
+
+    /* iOS-safe body scroll lock: freezes the page where it is and restores it on close. */
+    function lockScroll() {
+      savedScrollY = window.scrollY || window.pageYOffset || 0;
+      const body = document.body;
+      body.style.position = 'fixed';
+      body.style.top = `-${savedScrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+    }
+
+    function unlockScroll() {
+      const body = document.body;
+      const root = document.documentElement;
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, savedScrollY);
+      root.style.scrollBehavior = prev;
+    }
+
+    function setZoom(on) {
+      isZoomed = !!on;
+      carouselContainer.classList.toggle('is-zoomed', isZoomed);
+      zoomBtn.setAttribute('aria-pressed', String(isZoomed));
+      zoomBtn.setAttribute('aria-label', isZoomed ? 'Zoom out' : 'Zoom in on this view');
+      const icon = zoomBtn.querySelector('i');
+      if (icon) icon.className = isZoomed ? 'fa-solid fa-compress' : 'fa-solid fa-expand';
+      carouselStage.scrollLeft = 0;
+      carouselStage.scrollTop = 0;
+    }
+
+    function openModal(projectKey) {
+      const p = projectsData[projectKey];
+      if (!p || !modal) return;
+
+      lastFocusedEl = document.activeElement;
+      activeProjectKey = projectKey;
+      currentSlideIndex = 0;
+
+      $('#modalTitle').textContent = p.title;
+      $('#modalCategory').textContent = p.category;
+      $('#modalBusinessCase').textContent = p.businessCase;
+      $('#modalImpact').textContent = p.impact;
+
+      const techList = $('#modalTechList');
+      techList.innerHTML = '';
+      p.features.forEach(f => {
+        const li = document.createElement('li');
+        li.textContent = f;
+        techList.appendChild(li);
+      });
+
+      const metricsList = $('#modalMetrics');
+      metricsList.innerHTML = '';
+      p.metrics.forEach(m => {
+        const li = document.createElement('li');
+        const label = document.createElement('span');
+        const val = document.createElement('strong');
+        label.textContent = m.label;
+        val.textContent = m.val;
+        li.append(label, val);
+        metricsList.appendChild(li);
+      });
+
+      const tagsContainer = $('#modalTags');
+      tagsContainer.innerHTML = '';
+      p.tags.forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'tech-tag';
+        span.textContent = t;
+        tagsContainer.appendChild(span);
+      });
+
+      thumbsContainer.innerHTML = '';
+      p.gallery.forEach((imgObj, idx) => {
+        const thumb = document.createElement('button');
+        thumb.type = 'button';
+        thumb.className = 'thumb-item' + (idx === 0 ? ' active' : '');
+        thumb.setAttribute('aria-label', `View ${idx + 1}: ${imgObj.desc}`);
+        thumb.style.padding = '0';
+        thumb.style.background = 'none';
+        thumb.addEventListener('click', () => goToSlide(idx));
+        const im = document.createElement('img');
+        im.src = imgObj.url;
+        im.alt = '';
+        im.loading = 'lazy';
+        im.decoding = 'async';
+        thumb.appendChild(im);
+        thumbsContainer.appendChild(thumb);
+      });
+
+      setZoom(false);
+      renderCurrentSlide(false);
+
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      lockScroll();
+      modalScroll.scrollTop = 0;
+
+      // Move focus into the dialog once it is visible
+      requestAnimationFrame(() => $('#modalCloseBtn').focus({ preventScroll: true }));
+    }
+
+    function closeModal() {
+      if (!modal || !modal.classList.contains('active')) return;
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      unlockScroll();
+      activeProjectKey = null;
+      setZoom(false);
+      if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
+        lastFocusedEl.focus({ preventScroll: true });
+      }
+    }
+
+    function preload(url) {
+      const im = new Image();
+      im.decoding = 'async';
+      im.src = url;
+    }
+
+    function renderCurrentSlide(animateThumbs = true) {
+      if (!activeProjectKey) return;
+      const p = projectsData[activeProjectKey];
+      const total = p.gallery.length;
+      const slide = p.gallery[currentSlideIndex];
+
+      setZoom(false);
+      carouselContainer.classList.remove('is-error');
+      carouselContainer.classList.add('is-loading');
+
+      carouselImg.onload = () => carouselContainer.classList.remove('is-loading');
+      carouselImg.onerror = () => {
+        carouselContainer.classList.remove('is-loading');
+        carouselContainer.classList.add('is-error');
+      };
+      carouselImg.alt = slide.desc;
+      carouselImg.src = slide.url;
+      if (carouselImg.complete && carouselImg.naturalWidth) carouselContainer.classList.remove('is-loading');
+
+      $('#carouselCaption').textContent = `${slide.desc} (${currentSlideIndex + 1} of ${total})`;
+      $('#dynamicInsightTitle').textContent = slide.desc;
+      $('#dynamicInsightDesc').textContent = slide.insight;
+      $('#dynamicInsightTakeaway').textContent = slide.takeaway;
+
+      $$('.thumb-item', thumbsContainer).forEach((th, idx) => {
+        const active = idx === currentSlideIndex;
+        th.classList.toggle('active', active);
+        if (active) {
+          th.setAttribute('aria-current', 'true');
+          // Scroll only the strip itself, never the page or modal
+          const left = th.offsetLeft - (thumbsContainer.clientWidth - th.clientWidth) / 2;
+          thumbsContainer.scrollTo({ left, behavior: animateThumbs && !prefersReducedMotion ? 'smooth' : 'auto' });
+        } else {
+          th.removeAttribute('aria-current');
+        }
+      });
+
+      // Warm the neighbours so next/prev feels instant
+      if (total > 1) {
+        preload(p.gallery[(currentSlideIndex + 1) % total].url);
+        preload(p.gallery[(currentSlideIndex - 1 + total) % total].url);
+      }
+    }
+
+    function nextSlide() {
+      if (!activeProjectKey) return;
+      const total = projectsData[activeProjectKey].gallery.length;
+      currentSlideIndex = (currentSlideIndex + 1) % total;
+      renderCurrentSlide();
+    }
+
+    function prevSlide() {
+      if (!activeProjectKey) return;
+      const total = projectsData[activeProjectKey].gallery.length;
+      currentSlideIndex = (currentSlideIndex - 1 + total) % total;
+      renderCurrentSlide();
+    }
+
+    function goToSlide(index) {
+      currentSlideIndex = index;
+      renderCurrentSlide();
+    }
+
+    $('#modalCloseBtn').addEventListener('click', closeModal);
+    $('#prevBtn').addEventListener('click', prevSlide);
+    $('#nextBtn').addEventListener('click', nextSlide);
+    zoomBtn.addEventListener('click', () => setZoom(!isZoomed));
+
+    // Close only when the press both starts and ends on the backdrop
+    let pressStartedOnBackdrop = false;
+    modal.addEventListener('pointerdown', e => { pressStartedOnBackdrop = e.target === modal; });
+    modal.addEventListener('click', e => {
+      if (e.target === modal && pressStartedOnBackdrop) closeModal();
+      pressStartedOnBackdrop = false;
+    });
+
+    // Swipe left / right on the image to change view (disabled while zoomed)
+    (() => {
+      let startX = 0, startY = 0, tracking = false;
+      carouselStage.addEventListener('touchstart', e => {
+        if (isZoomed || e.touches.length !== 1) { tracking = false; return; }
+        tracking = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+      carouselStage.addEventListener('touchend', e => {
+        if (!tracking) return;
+        tracking = false;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+          dx < 0 ? nextSlide() : prevSlide();
+        }
+      }, { passive: true });
+    })();
+
+    // Keyboard: Esc, arrows, and a focus trap while the dialog is open
+    window.addEventListener('keydown', e => {
+      if (!modal.classList.contains('active')) return;
+
+      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key === 'ArrowRight') { nextSlide(); return; }
+      if (e.key === 'ArrowLeft') { prevSlide(); return; }
+
+      if (e.key === 'Tab') {
+        const focusables = $$('button, a[href], input, textarea, [tabindex]:not([tabindex="-1"])', modal)
+          .filter(el => !el.disabled && el.offsetParent !== null);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    /* =========================================================
+       Project cards: open, keyboard, pointer glow, filter, reveal
+       ========================================================= */
+    const projectsGrid = $('.projects-grid');
+    const projectCards = $$('.project-card');
+
+    if (projectsGrid) {
+      projectsGrid.addEventListener('click', e => {
+        const card = e.target.closest('.project-card');
+        if (!card) return;
+        const id = card.getAttribute('data-id');
+        if (id) openModal(id);
+      });
+
+      projectsGrid.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const card = e.target.closest('.project-card');
+        if (!card || e.target !== card) return;
+        e.preventDefault();
+        const id = card.getAttribute('data-id');
+        if (id) openModal(id);
+      });
+
+      if (canHover) {
+        projectsGrid.addEventListener('pointermove', e => {
+          const card = e.target.closest('.project-card');
+          if (!card) return;
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+          card.style.setProperty('--my', `${e.clientY - r.top}px`);
+        }, { passive: true });
+      }
+    }
+
+    // Filter tabs with fade/scale transitions
+    const filterBtns = $$('.filter-btn');
+    let filterTimer = null;
+
+    function applyFilter(filter) {
+      clearTimeout(filterTimer);
+      const leaving = [];
+      const entering = [];
+
+      projectCards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        if (match && card.hidden) entering.push(card);
+        if (!match && !card.hidden) leaving.push(card);
+      });
+
+      leaving.forEach(c => c.classList.add('is-leaving'));
+
+      const swap = () => {
+        leaving.forEach(c => { c.hidden = true; });
+        entering.forEach(c => {
+          c.hidden = false;
+          c.classList.add('is-leaving');
+          c.classList.add('in');
+        });
+        // next frame -> animate entering cards in, staggered
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          entering.forEach((c, i) => {
+            c.style.transitionDelay = prefersReducedMotion ? '0ms' : `${i * 45}ms`;
+            c.classList.remove('is-leaving');
+          });
+          setTimeout(() => entering.forEach(c => { c.style.transitionDelay = ''; }), 600);
+        }));
+      };
+
+      if (leaving.length && !prefersReducedMotion) filterTimer = setTimeout(swap, 220);
+      else swap();
+    }
+
+    filterBtns.forEach(btn => {
+      btn.setAttribute('aria-pressed', String(btn.classList.contains('active')));
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        applyFilter(btn.dataset.filter);
+      });
+    });
+
+    // Single orchestrated reveal for the project grid
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+      const revealObserver = new IntersectionObserver(entries => {
+        const visible = entries.filter(en => en.isIntersecting).map(en => en.target);
+        visible.forEach((card, i) => {
+          card.style.setProperty('--d', `${i * 70}ms`);
+          card.classList.add('in');
+          revealObserver.unobserve(card);
+          // drop the entrance state afterwards so hover transitions are never delayed
+          setTimeout(() => { card.classList.remove('reveal'); card.style.removeProperty('--d'); }, 1100 + i * 70);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      projectCards.forEach(card => {
+        card.classList.add('reveal');
+        revealObserver.observe(card);
+      });
+    }
+
+    /* =========================================================
+       Header: scrolled state, progress bar, section spy
+       ========================================================= */
+    const header = $('header');
+    const progressBar = $('#scrollProgress');
+    let ticking = false;
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY || 0;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (header) header.classList.toggle('is-scrolled', y > 8);
+        if (progressBar) progressBar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+
+    const spyLinks = $$('.nav-links a[href^="#"]');
+    const spyTargets = spyLinks
+      .map(a => ({ link: a, section: document.getElementById(a.getAttribute('href').slice(1)) }))
+      .filter(x => x.section);
+
+    if ('IntersectionObserver' in window && spyTargets.length) {
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (!en.isIntersecting) return;
+          spyTargets.forEach(({ link, section }) => {
+            const on = section === en.target;
+            link.classList.toggle('active', on);
+            if (on) {
+              link.setAttribute('aria-current', 'true');
+              const nav = link.closest('.nav-links');
+              if (nav && nav.scrollWidth > nav.clientWidth) {
+                const left = link.offsetLeft - (nav.clientWidth - link.clientWidth) / 2;
+                nav.scrollTo({ left, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+              }
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          });
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+      spyTargets.forEach(({ section }) => spy.observe(section));
+    }
+
+    /* =========================================================
+       Contact form (Formspree) – behaviour unchanged
+       ========================================================= */
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Transmitting...';
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (res.ok) {
+            formStatus.className = 'form-status success';
+            formStatus.innerHTML = '<i class="fa-solid fa-circle-check"></i> Message transmitted successfully. I will follow up promptly.';
+            form.reset();
+          } else {
+            throw new Error();
+          }
+        } catch (err) {
+          formStatus.className = 'form-status error';
+          formStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Transmission issue. Please contact directly via WhatsApp or Email.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Direct Inquiry';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
